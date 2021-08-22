@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0ce74541-6ab3-402b-8171-1ccc43b5325e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/nextjs.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/postcss.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/styles/index.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +63,8 @@
       <option name="presentableId" value="Default" />
       <updated>1629558460465</updated>
       <workItem from="1629558462126" duration="2552000" />
+      <workItem from="1629630473054" duration="5000" />
+      <workItem from="1629630496922" duration="13000" />
     </task>
     <servers />
   </component>
