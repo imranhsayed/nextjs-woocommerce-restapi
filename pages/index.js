@@ -1,21 +1,22 @@
-import Header from '../src/components/layouts/header';
-import Footer from '../src/components/layouts/footer';
+import Header from '../src/components/header';
+import Footer from '../src/components/footer';
 import axios from 'axios';
 
 export default function Home(props) {
-	console.log( 'props', props );
+	console.warn( 'props', props );
 	return (
-		<div>
+		<div >
 			<Header/>
-			<main>
-				<h1>
+			<main >
+				<h1 >
 					Welcome to <a href="https://nextjs.org">Next.js!</a>
 				</h1>
 				<p className="text-green-500">Hello</p>
 			</main>
+			
 			<Footer/>
 		</div>
-	);
+	)
 }
 
 export async function getStaticProps() {
