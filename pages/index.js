@@ -1,31 +1,35 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Header from '../src/components/layouts/header';
+import Footer from '../src/components/layouts/footer';
+import axios from 'axios';
 
-export default function Home() {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+export default function Home(props) {
+	console.log( 'props', props );
+	return (
+		<div>
+			<Header/>
+			<main>
+				<h1>
+					Welcome to <a href="https://nextjs.org">Next.js!</a>
+				</h1>
+				<p className="text-green-500">Hello</p>
+			</main>
+			<Footer/>
+		</div>
+	);
+}
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-	      <p className="text-green-500">Hello</p>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+export async function getStaticProps() {
+	const { data } = await axios.get( `${ process.env.NEXT_PUBLIC_WORDPRESS_SITE_URL }/wp-json/rae/v1/header-footer?header_location_id=hcms-menu-header&footer_location_id=hcms-menu-footer`);
+	
+	return {
+		props: {
+			data: data || {},
+		},
+		/**
+		 * Revalidate means that if a new request comes to server, then every 1 sec it will check
+		 * if the data is changed, if it is changed then it will update the
+		 * static file inside .next folder with the new data, so that any 'SUBSEQUENT' requests should have updated data.
+		 */
+		revalidate: 1,
+	};
 }
