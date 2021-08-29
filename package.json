@@ -5,9 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+	"svg": "svgr -d src/components/icons src/components/icons/svgs"
   },
   "dependencies": {
+    "@svgr/cli": "^5.5.0",
     "axios": "^0.21.1",
     "dompurify": "^2.3.1",
     "lodash": "^4.17.21",

@@ -12,6 +12,7 @@ import axios from 'axios';
 
 export default function Home({data}) {
 	const { header, footer } = data;
+	
 	return (
 		<div >
 			<Header header={header}/>
