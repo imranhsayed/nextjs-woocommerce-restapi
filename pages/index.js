@@ -1,12 +1,12 @@
-import Header from '../src/components/header';
-import Footer from '../src/components/footer';
+import Header from '../src/components/layouts/header';
+import Footer from '../src/components/layouts/footer';
 import axios from 'axios';
 
-export default function Home(props) {
-	console.warn( 'props', props );
+export default function Home({data}) {
+	const { header, footer } = data;
 	return (
 		<div >
-			<Header/>
+			<Header header={header}/>
 			<main >
 				<h1 >
 					Welcome to <a href="https://nextjs.org">Next.js!</a>
@@ -14,7 +14,7 @@ export default function Home(props) {
 				<p className="text-green-500">Hello</p>
 			</main>
 			
-			<Footer/>
+			<Footer footer={footer}/>
 		</div>
 	)
 }
@@ -23,9 +23,8 @@ export async function getStaticProps() {
 	const { data } = await axios.get( `${ process.env.NEXT_PUBLIC_WORDPRESS_SITE_URL }/wp-json/rae/v1/header-footer?header_location_id=hcms-menu-header&footer_location_id=hcms-menu-footer`);
 	
 	return {
-		props: {
-			data: data || {},
-		},
+		props: data || {},
+		
 		/**
 		 * Revalidate means that if a new request comes to server, then every 1 sec it will check
 		 * if the data is changed, if it is changed then it will update the

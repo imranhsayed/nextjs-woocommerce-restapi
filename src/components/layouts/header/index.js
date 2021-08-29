@@ -1,22 +1,43 @@
-import Head from 'next/head'
+import Head from 'next/head';
+import Link from 'next/link';
+import { isEmpty } from 'lodash';
 
-const Header = () => {
+const Header = ( { header } ) => {
+	
+	const { headerMenuItems, siteDescription, siteLogoUrl, siteTitle, favicon } = header || {};
+	
 	return (
 		<>
 			<Head>
-				<title>Create Next App</title>
-				<link rel="icon" href="/favicon.ico" />
+				<title>{ siteTitle || 'Nexts WooCommerce' }</title>
+				<link rel="icon" href={ favicon || '/favicon.ico' }/>
 			</Head>
 			<div className="header">
 				<nav className="bg-white p-4">
 					<div className="flex items-center justify-between flex-wrap container mx-auto">
 						<div className="flex items-center flex-shrink-0 text-black mr-20">
-							<svg className="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54"
-							     xmlns="http://www.w3.org/2000/svg">
-								<path
-									d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"></path>
-							</svg>
-							<span className="font-semibold text-xl tracking-tight"><a className="" href="/">WooNext</a></span>
+							<Link href="/">
+								<a>
+									{
+										siteLogoUrl ? (
+											<img className="mr-2" src={ siteLogoUrl } alt={ `${ siteTitle } logo` } width="86"
+											     height="86"/>
+										) : (
+											<svg className="fill-current h-8 w-8 mr-2" width="54" height="54"
+											     viewBox="0 0 54 54"
+											     xmlns="http://www.w3.org/2000/svg">
+												<path
+													d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"></path>
+											</svg> )
+									}
+								</a>
+							</Link>
+							<span>
+								<Link href="/">
+									<a className="font-semibold text-xl tracking-tight">{ siteTitle || 'WooNext' }</a>
+								</Link>
+								{ siteDescription ? <p>{ siteDescription }</p> : null }
+							</span>
 						</div>
 						<div className="block lg:hidden">
 							<button
@@ -30,17 +51,14 @@ const Header = () => {
 						</div>
 						<div
 							className="h-0 w-full overflow-hidden lg:h-full flex-grow lg:flex lg:items-center lg:w-auto">
-							<div className="text-sm font-medium uppercase lg:flex-grow"><a
-								className="block mt-4 lg:inline-block lg:mt-0 text-black hover:text-black mr-10"
-								href="/categories/">Categories</a><a
-								className="block mt-4 lg:inline-block lg:mt-0 text-black hover:text-black mr-10"
-								href="/">Women</a><a
-								className="block mt-4 lg:inline-block lg:mt-0 text-black hover:text-black mr-10"
-								href="/">Kids</a><a
-								className="block mt-4 lg:inline-block lg:mt-0 text-black hover:text-black mr-10"
-								href="/">Home &amp; Living</a><a
-								className="block mt-4 lg:inline-block lg:mt-0 text-black hover:text-black mr-10"
-								href="/">Offers</a></div>
+							<div className="text-sm font-medium uppercase lg:flex-grow">
+								{ ! isEmpty( headerMenuItems ) && headerMenuItems.length ? headerMenuItems.map( menuItem => (
+									<Link key={menuItem?.ID} href={ menuItem?.url || '/' }>
+										<a className="block mt-4 lg:inline-block lg:mt-0 text-black hover:text-black mr-10"
+										   dangerouslySetInnerHTML={{__html: menuItem.title}}/>
+									</Link>
+								) ) : null }
+							</div>
 							<div className="text-sm font-medium">
 								<a href="#responsive-header"
 								   className="block mt-4 lg:inline-block lg:mt-0 text-black hover:text-black mr-10">
@@ -75,7 +93,7 @@ const Header = () => {
 				</nav>
 			</div>
 		</>
-	)
-}
+	);
+};
 
 export default Header;
