@@ -54,6 +54,8 @@ npm run dev
 1. (Required) Create a `.env` file taking reference from `.env-example` and update your WordPressSite URL.
 - `NEXT_PUBLIC_WORDPRESS_URL=https://example.com`
 
+2. Add your `WC_CONSUMER_KEY` and `WC_CONSUMER_SECRET` to the `.env` by following [WooCommerce > Settings > Advanced > REST API](https://woocommerce.github.io/woocommerce-rest-api-docs/#authentication)
+
 2. In your WordPress Dashboard, Go to Settings > General > Site Address (URL) ( Set this to Frontend URL e.g. http://localhost:3000 during development )
 3. Create the Header and Footer Menus In WordPress Dashboard and set them to HCMS Header menu and HCMS Footer Menu respectively.
 
