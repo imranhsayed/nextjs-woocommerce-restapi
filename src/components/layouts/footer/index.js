@@ -12,8 +12,6 @@ import Link from 'next/link';
 
 const Footer = ({footer}) => {
 	
-	console.warn( 'footer', footer );
-	
 	const { copyrightText, footerMenuItems, sidebarOne, sidebarTwo, socialLinks } = footer || {};
 	
 	return (
@@ -35,7 +33,7 @@ const Footer = ({footer}) => {
 							<ul>
 								{ footerMenuItems.map( menuItem => (
 									<li key={menuItem?.ID}>
-										<Link href={menuItem?.url}>
+										<Link href={menuItem?.url ?? '/'}>
 											<a>{menuItem?.title}</a>
 										</Link>
 									</li>
