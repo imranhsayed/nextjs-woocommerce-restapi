@@ -51,8 +51,9 @@ npm run dev
 
 ## Configuration :wrench:
 
-1. (Required) Create a `.env` file taking reference from `.env-example` and update your WordPressSite URL.
+1. (Required) Create a `.env` file taking reference from `.env-example` and update your WordPressSite URL and Frontend next.js URL.
 - `NEXT_PUBLIC_WORDPRESS_URL=https://example.com`
+- `NEXT_PUBLIC_SITE_URL=http://localhost.com` ( This will be your frontend Next.js URL)
 
 2. Add your `WC_CONSUMER_KEY` and `WC_CONSUMER_SECRET` to the `.env` by following [WooCommerce > Settings > Advanced > REST API](https://woocommerce.github.io/woocommerce-rest-api-docs/#authentication)
 
