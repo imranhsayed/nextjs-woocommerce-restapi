@@ -12,6 +12,7 @@ import { GET_PRODUCTS_ENDPOINT, HEADER_FOOTER_ENDPOINT } from '../src/utils/cons
 import axios from 'axios';
 
 export default function Home({ headerFooter, products }) {
+	console.log( 'headerFooter', headerFooter );
 	const { header, footer } = headerFooter || {};
 	
 	return (
@@ -28,13 +29,14 @@ export default function Home({ headerFooter, products }) {
 
 export async function getStaticProps() {
 	
-	const { data: headerFooter } = await axios.get( HEADER_FOOTER_ENDPOINT );
+	const { data: headerFooterData } = await axios.get( HEADER_FOOTER_ENDPOINT );
 	const { data: productsData } = await axios.get( GET_PRODUCTS_ENDPOINT );
 	
-	const data = { headerFooter, products: productsData?.products ?? {} }
-	
 	return {
-		props: data || {},
+		props: {
+			headerFooter: headerFooterData?.data ?? {},
+			products: productsData?.products ?? {}
+		},
 		
 		/**
 		 * Revalidate means that if a new request comes to server, then every 1 sec it will check
