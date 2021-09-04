@@ -12,7 +12,7 @@ import { GET_PRODUCTS_ENDPOINT, HEADER_FOOTER_ENDPOINT } from '../src/utils/cons
 import axios from 'axios';
 
 export default function Home({ headerFooter, products }) {
-	console.log( 'headerFooter', headerFooter );
+	
 	const { header, footer } = headerFooter || {};
 	
 	return (
