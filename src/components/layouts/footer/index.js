@@ -9,23 +9,35 @@ import { getIconComponentByName } from '../../../utils/icons-map';
  */
 import {isEmpty, isArray} from 'lodash';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 const Footer = ({footer}) => {
 	
 	const { copyrightText, footerMenuItems, sidebarOne, sidebarTwo, socialLinks } = footer || {};
+	const [isMounted, setMount] = useState(false);
+	
+	
+	useEffect(() => {
+		setMount(true);
+	}, []);
 	
 	return (
 		<footer className="bg-blue-500 p-6">
 			<div className="container mx-auto">
 				<div className="flex flex-wrap -mx-1 overflow-hidden text-white">
-					{/*Widget One*/}
-					<div className="my-1 px-1 w-full overflow-hidden sm:w-full lg:w-1/2 xl:w-1/3">
-						<div dangerouslySetInnerHTML={{ __html: sanitize( sidebarOne ) }}/>
-					</div>
-					{/*Widget Two*/}
-					<div className="my-1 px-1 w-full overflow-hidden sm:w-full lg:w-1/2 xl:w-1/3">
-						<div dangerouslySetInnerHTML={{ __html: sanitize( sidebarTwo ) }}/>
-					</div>
+					
+					{ isMounted ? (
+						<>
+							{/*Widget One*/}
+							<div className="my-1 px-1 w-full overflow-hidden sm:w-full lg:w-1/2 xl:w-1/3">
+								<div dangerouslySetInnerHTML={{ __html: sanitize( sidebarOne ) }}/>
+							</div>
+							{/*Widget Two*/}
+							<div className="my-1 px-1 w-full overflow-hidden sm:w-full lg:w-1/2 xl:w-1/3">
+								<div dangerouslySetInnerHTML={{ __html: sanitize( sidebarTwo ) }}/>
+							</div>
+						</>
+					) : null}
 					
 					{/*	Footer Menus*/}
 					<div className="my-1 px-1 w-full overflow-hidden sm:w-full lg:w-1/2 xl:w-1/3">
