@@ -10,6 +10,7 @@ import { GET_PRODUCTS_ENDPOINT, HEADER_FOOTER_ENDPOINT } from '../src/utils/cons
  * External Dependencies.
  */
 import axios from 'axios';
+import { getProductsData } from '../src/utils/products';
 
 export default function Home({ headerFooter, products }) {
 	
@@ -30,12 +31,12 @@ export default function Home({ headerFooter, products }) {
 export async function getStaticProps() {
 	
 	const { data: headerFooterData } = await axios.get( HEADER_FOOTER_ENDPOINT );
-	const { data: productsData } = await axios.get( GET_PRODUCTS_ENDPOINT );
+	const { data: products } = await getProductsData();
 	
 	return {
 		props: {
 			headerFooter: headerFooterData?.data ?? {},
-			products: productsData?.products ?? {}
+			products: products ?? {}
 		},
 		
 		/**
