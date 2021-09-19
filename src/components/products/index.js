@@ -1,6 +1,7 @@
 import { isArray, isEmpty } from 'lodash';
 import Link from 'next/link';
 import Image from '../image';
+import { sanitize } from '../../utils/miscellaneous';
 
 const Products = ({ products }) => {
 	
@@ -25,6 +26,7 @@ const Products = ({ products }) => {
 									height="380"
 								/>
 								<h3 className="font-bold uppercase">{ product?.name ?? '' }</h3>
+								<div dangerouslySetInnerHTML={{ __html: sanitize( product?.price_html ?? '' ) }}/>
 							</a>
 						</Link>
 					</div>

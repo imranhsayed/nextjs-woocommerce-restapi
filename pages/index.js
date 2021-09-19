@@ -18,7 +18,7 @@ export default function Home({ headerFooter, products }) {
 	return (
 		<div >
 			<Header header={header}/>
-			<main className="container mx-auto p-4">
+			<main className="container mx-auto py-4">
 				<Products products={products}/>
 			</main>
 			
