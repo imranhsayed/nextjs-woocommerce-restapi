@@ -10,7 +10,7 @@ const AddToCart = ( { product } ) => {
 	}
 	
 	const addToCart = ( productId, qty = 1 ) => {
-		axios.post( ADD_TO_CART_ENDPOINT, {
+		axios.post( 'http://localhost:8888/wp-json/rae/v1/cart/items/', {
 				product_id: productId,
 				quantity: qty,
 			},
@@ -22,6 +22,22 @@ const AddToCart = ( { product } ) => {
 			} )
 			.then( ( res ) => {
 				console.log( 'card added', res );
+				viewCart();
+			} )
+			.catch( err => {
+				console.log( 'err', err );
+			} );
+	};
+	
+	const viewCart = () => {
+		axios.get( 'http://localhost:8888/wp-json/rae/v1/cart/items/', {
+			withCredentials: true,
+			headers: {
+				'X-Headless-CMS': true,
+			},
+		} )
+			.then( ( res ) => {
+				console.log( 'res', res );
 			} )
 			.catch( err => {
 				console.log( 'err', err );
