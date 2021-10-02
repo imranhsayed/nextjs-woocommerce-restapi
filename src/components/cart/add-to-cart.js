@@ -2,6 +2,8 @@ import { isEmpty } from 'lodash';
 
 import axios from 'axios';
 import { ADD_TO_CART_ENDPOINT } from '../../utils/constants/endpoints';
+import { getSession, storeSession } from '../../utils/cart/session';
+import { getAddOrViewCartConfig, getAddToCartConfig } from '../../utils/cart/api';
 
 const AddToCart = ( { product } ) => {
 	
@@ -10,18 +12,19 @@ const AddToCart = ( { product } ) => {
 	}
 	
 	const addToCart = ( productId, qty = 1 ) => {
-		axios.post( 'http://localhost:8888/wp-json/rae/v1/cart/items/', {
+		const storedSession = getSession();
+		const addOrViewCartConfig = getAddOrViewCartConfig();
+		axios.post( ADD_TO_CART_ENDPOINT, {
 				product_id: productId,
 				quantity: qty,
 			},
-			{
-				withCredentials: true,
-				headers: {
-					'X-Headless-CMS': true,
-				},
-			} )
+			addOrViewCartConfig,
+		)
 			.then( ( res ) => {
-				console.log( 'card added', res );
+				
+				if ( ! isEmpty( storedSession ) ) {
+					storeSession( res?.headers?.[ 'x-wc-session' ] );
+				}
 				viewCart();
 			} )
 			.catch( err => {
@@ -30,12 +33,8 @@ const AddToCart = ( { product } ) => {
 	};
 	
 	const viewCart = () => {
-		axios.get( 'http://localhost:8888/wp-json/rae/v1/cart/items/', {
-			withCredentials: true,
-			headers: {
-				'X-Headless-CMS': true,
-			},
-		} )
+		const addOrViewCartConfig = getAddOrViewCartConfig();
+		axios.get( ADD_TO_CART_ENDPOINT, addOrViewCartConfig )
 			.then( ( res ) => {
 				console.log( 'res', res );
 			} )
@@ -46,8 +45,10 @@ const AddToCart = ( { product } ) => {
 	
 	
 	return (
-		<button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" onClick={ () => addToCart( product?.id ) }>Add to cart</button>
+		<button
+			className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+			onClick={ () => addToCart( product?.id ) }>Add to cart</button>
 	);
-}
+};
 
-export default AddToCart
+export default AddToCart;
