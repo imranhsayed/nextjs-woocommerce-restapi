@@ -1,30 +1,22 @@
 /**
  * Internal Dependencies.
  */
-import Header from '../src/components/layouts/header';
-import Footer from '../src/components/layouts/footer';
 import Products from '../src/components/products';
-import { GET_PRODUCTS_ENDPOINT, HEADER_FOOTER_ENDPOINT } from '../src/utils/constants/endpoints';
+import { HEADER_FOOTER_ENDPOINT } from '../src/utils/constants/endpoints';
 
 /**
  * External Dependencies.
  */
 import axios from 'axios';
 import { getProductsData } from '../src/utils/products';
+import Layout from '../src/components/layout';
 
 export default function Home({ headerFooter, products }) {
 	
-	const { header, footer } = headerFooter || {};
-	
 	return (
-		<div >
-			<Header header={header}/>
-			<main className="container mx-auto py-4">
-				<Products products={products}/>
-			</main>
-			
-			<Footer footer={footer}/>
-		</div>
+		<Layout headerFooter={headerFooter || {}}>
+			<Products products={products}/>
+		</Layout>
 	)
 }
 

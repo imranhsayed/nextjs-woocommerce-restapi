@@ -10,7 +10,7 @@ import { isEmpty } from 'lodash';
  * @param {int} productId Product Id.
  * @param {int} qty Product Quantity.
  */
-export const addToCart = ( productId, qty = 1 ) => {
+export const addToCart = ( productId, qty = 1, setCart ) => {
 	
 	const storedSession = getSession();
 	const addOrViewCartConfig = getAddOrViewCartConfig();
@@ -26,7 +26,7 @@ export const addToCart = ( productId, qty = 1 ) => {
 			if ( isEmpty( storedSession ) ) {
 				storeSession( res?.headers?.[ 'x-wc-session' ] );
 			}
-			viewCart();
+			viewCart( setCart );
 		} )
 		.catch( err => {
 			console.log( 'err', err );
@@ -36,16 +36,22 @@ export const addToCart = ( productId, qty = 1 ) => {
 /**
  * View Cart Request Handler
  */
-export const viewCart = () => {
+export const viewCart = ( setCart ) => {
 	
 	const addOrViewCartConfig = getAddOrViewCartConfig();
 	
 	axios.get( CART_ENDPOINT, addOrViewCartConfig )
 		.then( ( res ) => {
 			console.log( 'res', res );
+			setCart( res );
+			// localStorage.setItem( 'woo-next-cart', JSON.stringify( updatedCart ) );
 		} )
 		.catch( err => {
 			console.log( 'err', err );
 		} );
 };
+
+const calculateCartTotal = () => {
+
+}
 
