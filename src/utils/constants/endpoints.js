@@ -5,4 +5,4 @@ export const GET_PRODUCTS_ENDPOINT = `${process.env.NEXT_PUBLIC_SITE_URL}/api/ge
  * Cart
  * @type {string}
  */
-export const ADD_TO_CART_ENDPOINT = `${process.env.NEXT_PUBLIC_WORDPRESS_SITE_URL}/wp-json/rae/v1/cart/items/`;
+export const CART_ENDPOINT = `${process.env.NEXT_PUBLIC_WORDPRESS_SITE_URL}/wp-json/rae/v1/cart/items/`;
