@@ -18,7 +18,7 @@ const Header = ( { header } ) => {
 				<link rel="icon" href={ favicon || '/favicon.ico' }/>
 			</Head>
 			<div className="header">
-				<nav className="bg-white p-4">
+				<nav className="bg-white py-5">
 					<div className="flex items-center justify-between flex-wrap container mx-auto">
 						<div className="flex items-center flex-shrink-0 text-black mr-20">
 							<Link href="/">
