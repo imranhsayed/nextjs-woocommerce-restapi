@@ -69,7 +69,7 @@ const getFormattedCartData = ( cartData ) => {
 	const cartTotal = calculateCartQtyAndPrice( cartData || [] );
 	return {
 		cartItems: cartData || [],
-		cartTotal,
+		...cartTotal,
 	};
 };
 

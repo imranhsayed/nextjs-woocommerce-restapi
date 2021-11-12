@@ -1,12 +1,14 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { isEmpty } from 'lodash';
 
 import { BurgerIcon, TailwindIcon, Bag, User, Wishlist } from '../../icons';
+import { AppContext } from '../../context';
 
 const Header = ( { header } ) => {
 	
+	const [ cart, setCart ] = useContext( AppContext );
 	const { headerMenuItems, siteDescription, siteLogoUrl, siteTitle, favicon } = header || {};
 	
 	const [ isMenuVisible, setMenuVisibility ] = useState( false );
@@ -41,12 +43,13 @@ const Header = ( { header } ) => {
 						</div>
 						<div className="block lg:hidden">
 							<button
-								onClick={() => setMenuVisibility( ! isMenuVisible )}
+								onClick={ () => setMenuVisibility( ! isMenuVisible ) }
 								className="flex items-center px-3 py-2 border rounded text-black border-black hover:text-black hover:border-black">
 								<BurgerIcon className="fill-current h-3 w-3"/>
 							</button>
 						</div>
-						<div className={`${ isMenuVisible ? 'max-h-full' : 'h-0' } overflow-hidden w-full lg:h-full block flex-grow lg:flex lg:items-center lg:w-auto`}>
+						<div
+							className={ `${ isMenuVisible ? 'max-h-full' : 'h-0' } overflow-hidden w-full lg:h-full block flex-grow lg:flex lg:items-center lg:w-auto` }>
 							<div className="text-sm font-medium uppercase lg:flex-grow">
 								{ ! isEmpty( headerMenuItems ) && headerMenuItems.length ? headerMenuItems.map( menuItem => (
 									<Link key={ menuItem?.ID } href={ menuItem?.url ?? '/' }>
@@ -70,13 +73,14 @@ const Header = ( { header } ) => {
 										Wishlist
 									</span>
 								</a>
-								<a className="flex mt-4 lg:inline-block lg:mt-0 text-black hover:text-black mr-10"
-								   href="/cart/">
+								<Link href="/cart">
+									<a className="flex mt-4 lg:inline-block lg:mt-0 text-black hover:text-black mr-10">
 									<span className="flex flex-row items-center lg:flex-col">
 									<Bag className="mr-1 lg:mr-0"/>
-									Bag
+										<span className="ml-1">Bag{ cart?.totalQty ? `(${cart?.totalQty})` : null }</span>
 									</span>
-								</a>
+									</a>
+								</Link>
 							</div>
 						</div>
 					</div>
