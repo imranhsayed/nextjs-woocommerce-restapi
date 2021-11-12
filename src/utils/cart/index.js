@@ -9,11 +9,15 @@ import { isEmpty } from 'lodash';
  *
  * @param {int} productId Product Id.
  * @param {int} qty Product Quantity.
+ * @param {Function} setCart Sets The New Cart Value
+ * @param {Function} setIsAddedToCart Sets A Boolean Value If Product Is Added To Cart.
+ * @param {Function} setLoading Sets A Boolean Value For Loading State.
  */
-export const addToCart = ( productId, qty = 1, setCart ) => {
-	
+export const addToCart = ( productId, qty = 1, setCart, setIsAddedToCart, setLoading ) => {
 	const storedSession = getSession();
 	const addOrViewCartConfig = getAddOrViewCartConfig();
+	
+	setLoading(true);
 	
 	axios.post( CART_ENDPOINT, {
 			product_id: productId,
@@ -26,6 +30,8 @@ export const addToCart = ( productId, qty = 1, setCart ) => {
 			if ( isEmpty( storedSession ) ) {
 				storeSession( res?.headers?.[ 'x-wc-session' ] );
 			}
+			setIsAddedToCart(true);
+			setLoading(false);
 			viewCart( setCart );
 		} )
 		.catch( err => {
@@ -42,9 +48,7 @@ export const viewCart = ( setCart ) => {
 	
 	axios.get( CART_ENDPOINT, addOrViewCartConfig )
 		.then( ( res ) => {
-			console.log( 'res', res );
 			setCart( res );
-			// localStorage.setItem( 'woo-next-cart', JSON.stringify( updatedCart ) );
 		} )
 		.catch( err => {
 			console.log( 'err', err );

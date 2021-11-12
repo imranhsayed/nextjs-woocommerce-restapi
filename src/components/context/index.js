@@ -31,12 +31,11 @@ export const AppProvider = ( props ) => {
 	 * would have set that.
 	 */
 	useEffect( () => {
-		
+
 		if ( process.browser ) {
-			console.log( 'came below' );
 			localStorage.setItem('next-cart', JSON.stringify(cart));
 		}
-		
+
 	}, [ cart ] );
 	
 	return (
