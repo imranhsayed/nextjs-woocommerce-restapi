@@ -3,6 +3,11 @@ module.exports = {
 		'./src/components/**/*.js',
 		'./pages/**/*.js'],
 	theme: {
+		extend: {
+			spacing: {
+				'11px': '11px'
+			},
+		},
 		container: {
 			padding: {
 				DEFAULT: '1rem',
