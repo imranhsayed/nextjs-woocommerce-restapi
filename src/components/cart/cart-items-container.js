@@ -59,7 +59,7 @@ const CartItemsContainer = () => {
 			{ cart ? (
 				<div className="woo-next-cart-table-row grid grid-cols-3 gap-4">
 					{/*Cart Items*/ }
-					<div className="woo-next-cart-table p-5 lg:col-span-2 mb-md-0 mb-5">
+					<div className="woo-next-cart-table lg:col-span-2 mb-md-0 mb-5">
 						{ cartItems.length &&
 						cartItems.map( ( item ) => (
 							<CartItem
