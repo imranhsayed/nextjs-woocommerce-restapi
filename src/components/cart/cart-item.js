@@ -11,6 +11,8 @@ const CartItem = ( {
                    } ) => {
 	
 	const [productCount, setProductCount] = useState( item.quantity );
+	const productImg = item?.data?.images?.[0];
+	console.log( 'item', item );
 	
 	/*
 	 * When user changes the qty from product input update the cart in localStorage
@@ -59,9 +61,6 @@ const CartItem = ( {
 		}
 	};
 	
-	const productImg = item?.data?.images?.[0];
-	console.log( 'productImg', productImg );
-	
 	return (
 		<div className="cart-item-wrap grid grid-cols-3 gap-6 mb-5 border border-brand-bright-grey p-5">
 			<div className="col-span-1 cart-left-col">
@@ -79,14 +78,15 @@ const CartItem = ( {
 				<div className="flex justify-between flex-col h-full">
 					<div className="cart-product-title-wrap relative">
 						<h3 className="cart-product-title">{ item?.data?.name }</h3>
+						{item?.data?.description ? <p>{item?.data?.description}</p> : ''}
 						<button className="cart-remove-item absolute right-0 top-0 px-4 py-2 flex items-center text-22px leading-22px bg-transparent border border-brand-bright-grey" onClick={ ( event ) => handleRemoveProductClick( event, item?.cartKey, products ) }>&times;</button>
 					</div>
 					
-					<footer className="cart-product-footer p-4 border-t border-brand-bright-grey">
-						{/*<div className="">*/}
-						{/*	<span className="cart-product-price">{ ( 'string' !== typeof item?.data?.price ) ? item?.data?.price.toFixed( 2 ) : item?.data?.price }</span>*/}
-						{/*	<span className="cart-total-price"> {( 'string' !== typeof item?.totalPrice ) ? item?.totalPrice.toFixed( 2 ) : item?.totalPrice }</span>*/}
-						{/*</div>*/}
+					<footer className="cart-product-footer flex justify-between p-4 border-t border-brand-bright-grey">
+						<div className="">
+							{/*<span className="cart-product-price">{ ( 'string' !== typeof item?.data?.price ) ? item?.data?.price.toFixed( 2 ) : item?.data?.price }</span>*/}
+							<span className="cart-total-price">{item?.line_subtotal}</span>
+						</div>
 						{/*Qty*/}
 						<div style={{ display: 'flex', alignItems: 'center' }}>
 							<button className="increment-btn" onClick={( event ) => handleQtyChange( event, item?.cartKey, 'decrement' )} >-</button>
