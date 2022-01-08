@@ -1,14 +1,11 @@
-import {useContext} from 'react';
 import Layout from '../src/components/layout';
 import { HEADER_FOOTER_ENDPOINT } from '../src/utils/constants/endpoints';
 import axios from 'axios';
-import CartItemsContainer from '../src/components/cart/cart-items-container';
 
-export default function Cart({ headerFooter }) {
+export default function Checkout({ headerFooter }) {
 	return (
 		<Layout headerFooter={headerFooter || {}}>
-			<h1>Cart</h1>
-			<CartItemsContainer/>
+			<h1>Checkout</h1>
 		</Layout>
 	);
 }

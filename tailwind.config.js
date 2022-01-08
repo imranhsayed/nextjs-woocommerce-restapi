@@ -7,6 +7,9 @@ module.exports = {
 			spacing: {
 				'11px': '11px'
 			},
+			minHeight: {
+				'50vh': '50vh'
+			}
 		},
 		container: {
 			padding: {

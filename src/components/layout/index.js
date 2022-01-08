@@ -6,9 +6,9 @@ const Layout = ({children, headerFooter}) => {
 	const { header, footer } = headerFooter || {};
 	return (
 		<AppProvider>
-			<div >
+			<div>
 				<Header header={header}/>
-				<main className="container mx-auto py-4">
+				<main className="container mx-auto py-4 min-h-50vh">
 					{children}
 				</main>
 				<Footer footer={footer}/>
