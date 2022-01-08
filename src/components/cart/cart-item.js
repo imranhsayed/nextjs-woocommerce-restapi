@@ -85,7 +85,7 @@ const CartItem = ( {
 					<footer className="cart-product-footer flex justify-between p-4 border-t border-brand-bright-grey">
 						<div className="">
 							{/*<span className="cart-product-price">{ ( 'string' !== typeof item?.data?.price ) ? item?.data?.price.toFixed( 2 ) : item?.data?.price }</span>*/}
-							<span className="cart-total-price">{item?.line_subtotal}</span>
+							<span className="cart-total-price">{item?.currency}{item?.line_subtotal}</span>
 						</div>
 						{/*Qty*/}
 						<div style={{ display: 'flex', alignItems: 'center' }}>
