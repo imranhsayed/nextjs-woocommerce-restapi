@@ -1,3 +1,9 @@
 @import "~tailwindcss/base";
 @import "~tailwindcss/components";
 @import "~tailwindcss/utilities";
+
+@import "../fonts/fonts.scss";
+
+@import "01-settings/typography";
+@import "03-components/elements/list";
+@import "03-components/layouts/footer";

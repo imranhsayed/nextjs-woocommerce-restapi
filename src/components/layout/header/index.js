@@ -38,7 +38,7 @@ const Header = ( { header } ) => {
 								<Link href="/">
 									<a className="font-semibold text-xl tracking-tight">{ siteTitle || 'WooNext' }</a>
 								</Link>
-								{ siteDescription ? <p>{ siteDescription }</p> : null }
+								{ siteDescription ? <p className="mb-0">{ siteDescription }</p> : null }
 							</span>
 						</div>
 						<div className="block lg:hidden">
@@ -53,7 +53,7 @@ const Header = ( { header } ) => {
 							<div className="text-sm font-medium uppercase lg:flex-grow">
 								{ ! isEmpty( headerMenuItems ) && headerMenuItems.length ? headerMenuItems.map( menuItem => (
 									<Link key={ menuItem?.ID } href={ menuItem?.url ?? '/' }>
-										<a className="block mt-4 lg:inline-block lg:mt-0 text-black hover:text-black mr-10"
+										<a className="block mt-4 lg:inline-block lg:mt-0 hover:text-brand-royal-blue duration-500 mr-10"
 										   dangerouslySetInnerHTML={ { __html: menuItem.title } }/>
 									</Link>
 								) ) : null }

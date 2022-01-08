@@ -22,7 +22,7 @@ const Footer = ({footer}) => {
 	}, []);
 	
 	return (
-		<footer className="bg-blue-500 p-6">
+		<footer className="footer bg-blue-500 p-6">
 			<div className="container mx-auto">
 				<div className="flex flex-wrap -mx-1 overflow-hidden text-white">
 					
@@ -61,10 +61,10 @@ const Footer = ({footer}) => {
 					</div>
 					<div className="w-full lg:w-3/4 flex justify-end">
 						{ !isEmpty( socialLinks ) && isArray( socialLinks ) ? (
-							<ul className="flex item-center">
+							<ul className="flex item-center mb-0">
 								{ socialLinks.map( socialLink => (
-									<li key={socialLink?.iconName} className="ml-4">
-										<a href={ socialLink?.iconUrl || '/' } target="_blank" title={socialLink?.iconName}>
+									<li key={socialLink?.iconName} className="no-dots-list mb-0 flex items-center">
+										<a href={ socialLink?.iconUrl || '/' } target="_blank" title={socialLink?.iconName} className="ml-2 inline-block">
 											{ getIconComponentByName( socialLink?.iconName ) }
 											<span className="sr-only">{socialLink?.iconName}</span>
 										</a>
