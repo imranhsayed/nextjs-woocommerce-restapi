@@ -1,5 +1,5 @@
 import { getSession, storeSession } from './session';
-import { getAddOrViewCartConfig } from './api';
+import { getApiCartConfig } from './api';
 import axios from 'axios';
 import { CART_ENDPOINT } from '../constants/endpoints';
 import { isEmpty, isArray } from 'lodash';
@@ -15,7 +15,7 @@ import { isEmpty, isArray } from 'lodash';
  */
 export const addToCart = ( productId, qty = 1, setCart, setIsAddedToCart, setLoading ) => {
 	const storedSession = getSession();
-	const addOrViewCartConfig = getAddOrViewCartConfig();
+	const addOrViewCartConfig = getApiCartConfig();
 	
 	setLoading(true);
 	
@@ -44,9 +44,29 @@ export const addToCart = ( productId, qty = 1, setCart, setIsAddedToCart, setLoa
  */
 export const viewCart = ( setCart ) => {
 	
-	const addOrViewCartConfig = getAddOrViewCartConfig();
+	const addOrViewCartConfig = getApiCartConfig();
 	
 	axios.get( CART_ENDPOINT, addOrViewCartConfig )
+		.then( ( res ) => {
+			const formattedCartData = getFormattedCartData( res?.data ?? [] )
+			setCart( formattedCartData );
+		} )
+		.catch( err => {
+			console.log( 'err', err );
+		} );
+};
+
+/**
+ * Update Cart Request Handler
+ */
+export const updateCart = ( productId, qty = 1, setCart, ) => {
+	
+	const addOrViewCartConfig = getApiCartConfig();
+	
+	axios.put( CART_ENDPOINT, {
+		// product_id: productId,
+		quantity: qty,
+	}, addOrViewCartConfig )
 		.then( ( res ) => {
 			const formattedCartData = getFormattedCartData( res?.data ?? [] )
 			setCart( formattedCartData );

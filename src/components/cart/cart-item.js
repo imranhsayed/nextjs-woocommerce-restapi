@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import {isEmpty} from "lodash";
 import Image from '../image';
+import { updateCart } from '../../utils/cart';
 
 const CartItem = ( {
 	                   item,
 	                   products,
 	                   updateCartProcessing,
 	                   handleRemoveProductClick,
-	                   updateCart,
                    } ) => {
 	
 	const [productCount, setProductCount] = useState( item.quantity );
@@ -56,6 +56,7 @@ const CartItem = ( {
 				// 		}
 				// 	},
 				// } );
+				updateCart(item?.id, newQty);
 			}
 			
 		}
