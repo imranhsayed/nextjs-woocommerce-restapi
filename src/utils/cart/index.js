@@ -77,6 +77,27 @@ export const updateCart = ( productId, qty = 1, setCart, ) => {
 };
 
 /**
+ * Clear Cart Request Handler
+ */
+export const clearCart = ( setCart, setClearCartProcessing ) => {
+	
+	setClearCartProcessing(true);
+	
+	const addOrViewCartConfig = getApiCartConfig();
+	
+	axios.delete( CART_ENDPOINT, addOrViewCartConfig )
+		.then( ( res ) => {
+			const formattedCartData = getFormattedCartData( res?.data ?? [] )
+			setCart( formattedCartData );
+			setClearCartProcessing(false);
+		} )
+		.catch( err => {
+			console.log( 'err', err );
+			setClearCartProcessing(false);
+		} );
+};
+
+/**
  * Get Formatted Cart Data.
  *
  * @param cartData

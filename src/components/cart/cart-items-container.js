@@ -3,6 +3,7 @@ import { AppContext } from '../context';
 import CartItem from './cart-item';
 
 import Link from 'next/link';
+import { clearCart } from '../../utils/cart';
 
 const CartItemsContainer = () => {
 	const [ cart, setCart ] = useContext( AppContext );
@@ -40,18 +41,12 @@ const CartItemsContainer = () => {
 	const handleClearCart = ( event ) => {
 		event.stopPropagation();
 		
-		// if (isClearCartProcessing) {
-		// 	return;
-		// }
-		//
-		// clearCart({
-		// 	variables: {
-		// 		input: {
-		// 			clientMutationId: v4(),
-		// 			all: true,
-		// 		},
-		// 	},
-		// });
+		if (isClearCartProcessing) {
+			return;
+		}
+		
+		clearCart( setCart, setClearCartProcessing );
+
 	};
 	
 	return (
@@ -73,46 +68,44 @@ const CartItemsContainer = () => {
 					</div>
 					
 					{/*Cart Total*/ }
-					<div className="woo-next-cart-total-container lg:col-span-1 p-5">
+					<div className="woo-next-cart-total-container lg:col-span-1 p-5 pt-0">
 						<h2>Cart Total</h2>
-						<table className="table table-hover">
-							<tbody>
-							<tr className="table-light">
-								<td className="woo-next-cart-element-total">Total</td>
-								<td className="woo-next-cart-element-amt">{ totalPrice }</td>
-							</tr>
-							</tbody>
-						</table>
-						<Link href="/checkout">
-							<button className="btn btn-dark woo-next-large-black-btn">
+						<div className="flex grid grid-cols-3 bg-gray-100 mb-4">
+							<p className="col-span-2 p-2 mb-0">Total</p>
+							<p className="col-span-1 p-2 mb-0">{ totalPrice }</p>
+						</div>
+						
+						<div className="flex justify-between">
+							{/*Clear entire cart*/}
+							<div className="clear-cart">
+								<button
+									className="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-gray-600 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-800"
+									onClick={(event) => handleClearCart(event)}
+									disabled={isClearCartProcessing}
+								>
+									<span className="woo-next-cart">{!isClearCartProcessing ? "Clear Cart" : "Clearing..."}</span>
+								</button>
+							</div>
+							{/*Checkout*/}
+							<Link href="/checkout">
+								<button className="text-white duration-500 bg-brand-orange hover:bg-brand-royal-blue focus:ring-4 focus:text-brand-gunsmoke-grey font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-yellow-900">
 			                  <span className="woo-next-cart-checkout-txt">
 			                    Proceed to Checkout
 			                  </span>
-								<i className="fas fa-long-arrow-alt-right"/>
-							</button>
-						</Link>
-						{/*Clear entire cart*/}
-						<div className="clear-cart">
-							<button
-								className="btn btn-light "
-								onClick={(event) => handleClearCart(event)}
-								disabled={isClearCartProcessing}
-							>
-								<span className="woo-next-cart">Clear Cart</span>
-								<i className="fa fa-arrow-alt-right" />
-							</button>
-							{isClearCartProcessing ? <p>Clearing...</p> : ""}
+									<i className="fas fa-long-arrow-alt-right"/>
+								</button>
+							</Link>
 						</div>
 					</div>
 				</div>
 			) : (
-				<div className="container mt-5" style={ { height: '72vh' } }>
+				<div className="mt-14">
 					<h2>No items in the cart</h2>
 					<Link href="/">
-						<button className="btn btn-secondary woo-next-large-black-btn">
-              <span className="woo-next-cart-checkout-txt">
-                Add New Products
-              </span>
+						<button className="text-white duration-500 bg-brand-orange hover:bg-brand-royal-blue font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-yellow-900">
+			              <span className="woo-next-cart-checkout-txt">
+			                Add New Products
+			              </span>
 							<i className="fas fa-long-arrow-alt-right"/>
 						</button>
 					</Link>
