@@ -1,4 +1,3 @@
-import {useContext} from 'react';
 import Layout from '../src/components/layout';
 import { HEADER_FOOTER_ENDPOINT } from '../src/utils/constants/endpoints';
 import axios from 'axios';
