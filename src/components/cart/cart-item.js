@@ -45,8 +45,8 @@ const CartItem = ( {
 			event.stopPropagation();
 			let newQty;
 			
-			// If the previous cart request is still updatingProduct, then return.
-			if ( updatingProduct || ( 'decrement' === type && 1 === productCount ) ) {
+			// If the previous cart request is still updatingProduct or removingProduct, then return.
+			if ( updatingProduct || removingProduct || ( 'decrement' === type && 1 === productCount ) ) {
 				return;
 			}
 			
@@ -85,7 +85,7 @@ const CartItem = ( {
 					<div className="cart-product-title-wrap relative">
 						<h3 className="cart-product-title text-brand-orange">{ item?.data?.name }</h3>
 						{item?.data?.description ? <p>{item?.data?.description}</p> : ''}
-						<button className="cart-remove-item absolute right-0 top-0 px-4 py-2 flex items-center text-22px leading-22px bg-transparent border border-brand-bright-grey" onClick={ ( event ) => handleRemoveProductClick( event, item?.cartKey, products ) }>&times;</button>
+						<button className="cart-remove-item absolute right-0 top-0 px-4 py-2 flex items-center text-22px leading-22px bg-transparent border border-brand-bright-grey" onClick={ ( event ) => handleRemoveProductClick( event, item?.key ) }>&times;</button>
 					</div>
 					
 					<footer className="cart-product-footer flex justify-between p-4 border-t border-brand-bright-grey">

@@ -57,6 +57,7 @@ export const viewCart = ( setCart, setProcessing = () => {} ) => {
 		} )
 		.catch( err => {
 			console.log( 'err', err );
+			setProcessing(false);
 		} );
 };
 
@@ -77,6 +78,7 @@ export const updateCart = ( cartKey, qty = 1, setCart, setUpdatingProduct ) => {
 		} )
 		.catch( err => {
 			console.log( 'err', err );
+			setUpdatingProduct(false);
 		} );
 };
 
@@ -104,6 +106,7 @@ export const deleteCartItem = ( cartKey, setCart, setRemovingProduct ) => {
 		} )
 		.catch( err => {
 			console.log( 'err', err );
+			setRemovingProduct(false);
 		} );
 };
 
@@ -121,9 +124,7 @@ export const clearCart = ( setCart, setClearCartProcessing ) => {
 	
 	axios.delete( CART_ENDPOINT, addOrViewCartConfig )
 		.then( ( res ) => {
-			const formattedCartData = getFormattedCartData( res?.data ?? [] )
-			setCart( formattedCartData );
-			setClearCartProcessing(false);
+			viewCart( setCart, setClearCartProcessing )
 		} )
 		.catch( err => {
 			console.log( 'err', err );
