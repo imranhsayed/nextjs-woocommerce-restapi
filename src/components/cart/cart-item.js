@@ -118,7 +118,6 @@ const CartItem = ( {
 					
 					<footer className="cart-product-footer flex justify-between p-4 border-t border-brand-bright-grey">
 						<div className="">
-							{/*<span className="cart-product-price">{ ( 'string' !== typeof item?.data?.price ) ? item?.data?.price.toFixed( 2 ) : item?.data?.price }</span>*/}
 							<span className="cart-total-price">{item?.currency}{item?.line_subtotal}</span>
 						</div>
 						{ updatingProduct ? <img className="woo-next-cart-item-spinner" width="24" src="/cart-spinner.gif"  alt="spinner"/> : null }
