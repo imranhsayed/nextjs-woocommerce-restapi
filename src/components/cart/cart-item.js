@@ -1,19 +1,34 @@
 import React, { useState } from 'react';
 import {isEmpty} from "lodash";
 import Image from '../image';
-import { updateCart } from '../../utils/cart';
+import { deleteCartItem, updateCart } from '../../utils/cart';
 
 const CartItem = ( {
 	                   item,
 	                   products,
-	                   updateCartProcessing,
-	                   handleRemoveProductClick,
 	                   setCart
                    } ) => {
 	
 	const [productCount, setProductCount] = useState( item.quantity );
-	const [loading, setLoading] = useState( false );
-	const productImg = item?.data?.images?.[0];
+	const [updatingProduct, setUpdatingProduct] = useState( false );
+	const [removingProduct, setRemovingProduct] = useState( false );
+	const productImg = item?.data?.images?.[0] ?? '';
+	
+	/*
+	 * Handle remove product click.
+	 *
+	 * @param {Object} event event
+	 * @param {Integer} Product Id.
+	 *
+	 * @return {void}
+	 */
+	const handleRemoveProductClick = ( event, cartKey ) => {
+		event.stopPropagation();
+		
+		if ( !updatingProduct ) {
+			deleteCartItem( cartKey, setCart, setRemovingProduct );
+		}
+	};
 	
 	/*
 	 * When user changes the qty from product input update the cart in localStorage
@@ -30,8 +45,8 @@ const CartItem = ( {
 			event.stopPropagation();
 			let newQty;
 			
-			// If the previous update cart mutation request is still processing, then return.
-			if ( updateCartProcessing || ( 'decrement' === type && 1 === productCount ) ) {
+			// If the previous cart request is still updatingProduct, then return.
+			if ( updatingProduct || ( 'decrement' === type && 1 === productCount ) ) {
 				return;
 			}
 			
@@ -46,18 +61,7 @@ const CartItem = ( {
 			setProductCount( newQty );
 			
 			if ( products.length ) {
-				
-				// const updatedItems = getUpdatedItems( products, newQty, cartKey );
-				//
-				// updateCart( {
-				// 	variables: {
-				// 		input: {
-				// 			clientMutationId: v4(),
-				// 			items: updatedItems
-				// 		}
-				// 	},
-				// } );
-				updateCart(item?.key, newQty, setCart, setLoading);
+				updateCart(item?.key, newQty, setCart, setUpdatingProduct);
 			}
 			
 		}
@@ -89,7 +93,7 @@ const CartItem = ( {
 							{/*<span className="cart-product-price">{ ( 'string' !== typeof item?.data?.price ) ? item?.data?.price.toFixed( 2 ) : item?.data?.price }</span>*/}
 							<span className="cart-total-price">{item?.currency}{item?.line_subtotal}</span>
 						</div>
-						{loading ? <span>Updating...</span> : null}
+						{ updatingProduct ? <img className="woo-next-cart-item-spinner" width="24" src="/cart-spinner.gif"  alt="spinner"/> : null }
 						{/*Qty*/}
 						<div style={{ display: 'flex', alignItems: 'center' }}>
 							<button className="decrement-btn text-24px" onClick={( event ) => handleQtyChange( event, item?.cartKey, 'decrement' )} >-</button>
@@ -98,13 +102,11 @@ const CartItem = ( {
 								min="1"
 								style={{ textAlign: 'center', width: '50px', paddingRight: '0' }}
 								data-cart-key={ item?.data?.cartKey }
-								className={ `woo-next-cart-qty-input ml-3 ${ updateCartProcessing ? 'disabled' : '' } ` }
+								className={ `woo-next-cart-qty-input ml-3 ${ updatingProduct ? 'disabled' : '' } ` }
 								value={ productCount }
 								onChange={ ( event ) => handleQtyChange( event, item?.cartKey, '' ) }
 							/>
 							<button className="increment-btn text-20px" onClick={( event ) => handleQtyChange( event, item?.cartKey, 'increment' )}>+</button>
-							{ updateCartProcessing ?
-								<img className="woo-next-cart-item-spinner" src={ cartSpinnerGif } alt="spinner"/> : '' }
 						</div>
 					</footer>
 				</div>

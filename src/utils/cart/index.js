@@ -43,9 +43,9 @@ export const addToCart = ( productId, qty = 1, setCart, setIsAddedToCart, setLoa
  * View Cart Request Handler
  *
  * @param {Function} setCart Set Cart Function.
- * @param {Function} setLoading Set Loading Function.
+ * @param {Function} setProcessing Set Processing Function.
  */
-export const viewCart = ( setCart, setLoading = () => {} ) => {
+export const viewCart = ( setCart, setProcessing = () => {} ) => {
 	
 	const addOrViewCartConfig = getApiCartConfig();
 	
@@ -53,7 +53,7 @@ export const viewCart = ( setCart, setLoading = () => {} ) => {
 		.then( ( res ) => {
 			const formattedCartData = getFormattedCartData( res?.data ?? [] )
 			setCart( formattedCartData );
-			setLoading(false);
+			setProcessing(false);
 		} )
 		.catch( err => {
 			console.log( 'err', err );
@@ -63,20 +63,44 @@ export const viewCart = ( setCart, setLoading = () => {} ) => {
 /**
  * Update Cart Request Handler
  */
-export const updateCart = ( cartKey, qty = 1, setCart, setLoading ) => {
+export const updateCart = ( cartKey, qty = 1, setCart, setUpdatingProduct ) => {
 	
 	const addOrViewCartConfig = getApiCartConfig();
 	
-	setLoading(true);
+	setUpdatingProduct(true);
 	
 	axios.put( `${CART_ENDPOINT}${cartKey}`, {
-		// product_id: productId,
 		quantity: qty,
 	}, addOrViewCartConfig )
 		.then( ( res ) => {
-			// const formattedCartData = getFormattedCartData( res?.data ?? [] );
-			// setCart( formattedCartData );
-			viewCart( setCart, setLoading );
+			viewCart( setCart, setUpdatingProduct );
+		} )
+		.catch( err => {
+			console.log( 'err', err );
+		} );
+};
+
+/**
+ * Delete a cart item Request handler.
+ *
+ * Deletes all products in the cart of a
+ * specific product id ( by its cart key )
+ * In a cart session, each product maintains
+ * its data( qty etc ) with a specific cart key
+ *
+ * @param {String} cartKey Cart Key.
+ * @param {Function} setCart SetCart Function.
+ * @param {Function} setRemovingProduct Set Removing Product Function.
+ */
+export const deleteCartItem = ( cartKey, setCart, setRemovingProduct ) => {
+	
+	const addOrViewCartConfig = getApiCartConfig();
+	
+	setRemovingProduct(true);
+	
+	axios.delete( `${CART_ENDPOINT}${cartKey}`, addOrViewCartConfig )
+		.then( ( res ) => {
+			viewCart( setCart, setRemovingProduct );
 		} )
 		.catch( err => {
 			console.log( 'err', err );

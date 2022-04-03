@@ -8,34 +8,7 @@ import { clearCart } from '../../utils/cart';
 const CartItemsContainer = () => {
 	const [ cart, setCart ] = useContext( AppContext );
 	const { cartItems, totalPrice, totalQty } = cart || {};
-	const [ isUpdateCartProcessing, setUpdateCartProcessing ] = useState( false );
 	const [ isClearCartProcessing, setClearCartProcessing ] = useState( false );
-	console.log( 'cartItems', cartItems );
-	/*
-	 * Handle remove product click.
-	 *
-	 * @param {Object} event event
-	 * @param {Integer} Product Id.
-	 *
-	 * @return {void}
-	 */
-	const handleRemoveProductClick = ( event, cartKey, products ) => {
-		event.stopPropagation();
-		if ( products.length ) {
-			// By passing the newQty to 0 in updateCart Mutation, it will remove the item.
-			const newQty = 0;
-			// const updatedItems = getUpdatedItems(products, newQty, cartKey);
-			//
-			// updateCart({
-			// 	variables: {
-			// 		input: {
-			// 			clientMutationId: v4(),
-			// 			items: updatedItems,
-			// 		},
-			// 	},
-			// });
-		}
-	};
 	
 	// Clear the entire cart.
 	const handleClearCart = ( event ) => {
@@ -60,10 +33,8 @@ const CartItemsContainer = () => {
 							<CartItem
 								key={ item.product_id }
 								item={ item }
-								updateCartProcessing={ isUpdateCartProcessing }
 								products={ cartItems }
 								setCart={setCart}
-								handleRemoveProductClick={ handleRemoveProductClick }
 							/>
 						) ) }
 					</div>
