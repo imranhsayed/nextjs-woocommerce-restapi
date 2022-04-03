@@ -62,6 +62,7 @@ const CartItemsContainer = () => {
 								item={ item }
 								updateCartProcessing={ isUpdateCartProcessing }
 								products={ cartItems }
+								setCart={setCart}
 								handleRemoveProductClick={ handleRemoveProductClick }
 							/>
 						) ) }
@@ -72,7 +73,7 @@ const CartItemsContainer = () => {
 						<h2>Cart Total</h2>
 						<div className="flex grid grid-cols-3 bg-gray-100 mb-4">
 							<p className="col-span-2 p-2 mb-0">Total</p>
-							<p className="col-span-1 p-2 mb-0">{ totalPrice }</p>
+							<p className="col-span-1 p-2 mb-0">{cartItems?.[0]?.currency ?? ''}{ totalPrice }</p>
 						</div>
 						
 						<div className="flex justify-between">

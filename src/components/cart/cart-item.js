@@ -8,11 +8,12 @@ const CartItem = ( {
 	                   products,
 	                   updateCartProcessing,
 	                   handleRemoveProductClick,
+	                   setCart
                    } ) => {
 	
 	const [productCount, setProductCount] = useState( item.quantity );
+	const [loading, setLoading] = useState( false );
 	const productImg = item?.data?.images?.[0];
-	console.log( 'item', item );
 	
 	/*
 	 * When user changes the qty from product input update the cart in localStorage
@@ -56,7 +57,7 @@ const CartItem = ( {
 				// 		}
 				// 	},
 				// } );
-				updateCart(item?.id, newQty);
+				updateCart(item?.key, newQty, setCart, setLoading);
 			}
 			
 		}
@@ -88,6 +89,7 @@ const CartItem = ( {
 							{/*<span className="cart-product-price">{ ( 'string' !== typeof item?.data?.price ) ? item?.data?.price.toFixed( 2 ) : item?.data?.price }</span>*/}
 							<span className="cart-total-price">{item?.currency}{item?.line_subtotal}</span>
 						</div>
+						{loading ? <span>Updating...</span> : null}
 						{/*Qty*/}
 						<div style={{ display: 'flex', alignItems: 'center' }}>
 							<button className="decrement-btn text-24px" onClick={( event ) => handleQtyChange( event, item?.cartKey, 'decrement' )} >-</button>

@@ -41,8 +41,11 @@ export const addToCart = ( productId, qty = 1, setCart, setIsAddedToCart, setLoa
 
 /**
  * View Cart Request Handler
+ *
+ * @param {Function} setCart Set Cart Function.
+ * @param {Function} setLoading Set Loading Function.
  */
-export const viewCart = ( setCart ) => {
+export const viewCart = ( setCart, setLoading = () => {} ) => {
 	
 	const addOrViewCartConfig = getApiCartConfig();
 	
@@ -50,6 +53,7 @@ export const viewCart = ( setCart ) => {
 		.then( ( res ) => {
 			const formattedCartData = getFormattedCartData( res?.data ?? [] )
 			setCart( formattedCartData );
+			setLoading(false);
 		} )
 		.catch( err => {
 			console.log( 'err', err );
@@ -59,17 +63,20 @@ export const viewCart = ( setCart ) => {
 /**
  * Update Cart Request Handler
  */
-export const updateCart = ( productId, qty = 1, setCart, ) => {
+export const updateCart = ( cartKey, qty = 1, setCart, setLoading ) => {
 	
 	const addOrViewCartConfig = getApiCartConfig();
 	
-	axios.put( CART_ENDPOINT, {
+	setLoading(true);
+	
+	axios.put( `${CART_ENDPOINT}${cartKey}`, {
 		// product_id: productId,
 		quantity: qty,
 	}, addOrViewCartConfig )
 		.then( ( res ) => {
-			const formattedCartData = getFormattedCartData( res?.data ?? [] )
-			setCart( formattedCartData );
+			// const formattedCartData = getFormattedCartData( res?.data ?? [] );
+			// setCart( formattedCartData );
+			viewCart( setCart, setLoading );
 		} )
 		.catch( err => {
 			console.log( 'err', err );
@@ -78,6 +85,9 @@ export const updateCart = ( productId, qty = 1, setCart, ) => {
 
 /**
  * Clear Cart Request Handler
+ *
+ * @param {Function} setCart Set Cart
+ * @param {Function} setClearCartProcessing Set Clear Cart Processing.
  */
 export const clearCart = ( setCart, setClearCartProcessing ) => {
 	
