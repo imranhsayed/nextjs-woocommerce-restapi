@@ -25,7 +25,7 @@ const CartItemsContainer = () => {
 	return (
 		<div className="content-wrap-cart">
 			{ cart ? (
-				<div className="woo-next-cart-table-row grid grid-cols-3 gap-4">
+				<div className="woo-next-cart-table-row grid lg:grid-cols-3 gap-4">
 					{/*Cart Items*/ }
 					<div className="woo-next-cart-table lg:col-span-2 mb-md-0 mb-5">
 						{ cartItems.length &&
