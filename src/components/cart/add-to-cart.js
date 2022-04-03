@@ -11,7 +11,7 @@ const AddToCart = ( { product } ) => {
 	const [ isAddedToCart, setIsAddedToCart ] = useState( false );
 	const [ loading, setLoading ] = useState( false );
 	const addToCartBtnClasses = cx(
-		'text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow',
+		'duration-500 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow',
 		{
 			'bg-white hover:bg-gray-100': ! loading,
 			'bg-gray-200': loading,
