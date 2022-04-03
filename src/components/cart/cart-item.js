@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {isEmpty} from "lodash";
 import Image from '../image';
 import { deleteCartItem, updateCart } from '../../utils/cart';
@@ -14,6 +14,29 @@ const CartItem = ( {
 	const [removingProduct, setRemovingProduct] = useState( false );
 	const productImg = item?.data?.images?.[0] ?? '';
 	
+	/**
+	 * isMounted is used so that we can set it's value to false
+	 * when the component is unmounted.
+	 * This is done so that setState ( e.g setRemovingProduct ) in asynchronous calls
+	 * such as axios.post, do not get executed when component leaves the DOM
+	 * due to product/item deletion.
+	 * If we do not do this as unsubscription, we will get
+	 * "React memory leak warning- Can't perform a React state update on an unmounted component"
+	 *
+	 * @see https://dev.to/jexperton/how-to-fix-the-react-memory-leak-warning-d4i
+	 * @type {React.MutableRefObject<boolean>}
+	 */
+	const isMounted = useRef( false );
+	
+	useEffect( () => {
+		isMounted.current = true
+		
+		// When component is unmounted, set isMounted.current to false.
+		return () => {
+			isMounted.current = false
+		}
+	}, [] )
+	
 	/*
 	 * Handle remove product click.
 	 *
@@ -25,9 +48,12 @@ const CartItem = ( {
 	const handleRemoveProductClick = ( event, cartKey ) => {
 		event.stopPropagation();
 		
-		if ( !updatingProduct ) {
-			deleteCartItem( cartKey, setCart, setRemovingProduct );
+		// If the component is unmounted, or still previous item update request is in process, then return.
+		if ( !isMounted || updatingProduct ) {
+			return;
 		}
+		
+		deleteCartItem( cartKey, setCart, setRemovingProduct );
 	};
 	
 	/*
