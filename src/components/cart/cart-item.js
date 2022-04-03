@@ -15,6 +15,8 @@ const CartItem = ( {
 	const productImg = item?.data?.images?.[0] ?? '';
 	
 	/**
+	 * Do not allow state update on an unmounted component.
+	 *
 	 * isMounted is used so that we can set it's value to false
 	 * when the component is unmounted.
 	 * This is done so that setState ( e.g setRemovingProduct ) in asynchronous calls
