@@ -1,3 +1,4 @@
+export { default as ArrowDown } from './ArrowDown'
 export { default as Bag } from './Bag'
 export { default as BurgerIcon } from './BurgerIcon'
 export { default as Facebook } from './Facebook'
