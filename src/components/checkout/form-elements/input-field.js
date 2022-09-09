@@ -1,10 +1,12 @@
-import Error from "../Error";
+import Error from "../error";
 import PropTypes from 'prop-types';
-import Abbr from "./Abbr";
+import Abbr from "./abbr";
 
 const InputField = ({ handleOnChange, inputValue, name, type, label, errors, placeholder, required, containerClassNames, isShipping }) => {
 	
 	const inputId = `${name}-${isShipping ? 'shipping' : ''}`;
+	
+	console.log( 'inputValue', inputValue );
 	
 	return (
 		<div className={containerClassNames}>

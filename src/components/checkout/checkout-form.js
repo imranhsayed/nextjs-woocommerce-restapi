@@ -1,7 +1,7 @@
 import {useState, useContext, useEffect} from 'react';
 import cx from 'classnames'
 
-import YourOrder from "./your-order";
+import YourOrder from './your-order';
 import PaymentModes from "./payment-modes";
 // import validateAndSanitizeCheckoutForm from '../../validator/checkout';
 // import {getFormattedCart, createCheckoutData,} from "../../functions";
@@ -18,35 +18,35 @@ import CheckboxField from './form-elements/checkbox-field';
 // import CLEAR_CART_MUTATION from "../../mutations/clear-cart";
 
 // Use this for testing purposes, so you dont have to fill the checkout form over an over again.
-const defaultCustomerInfo = {
-	firstName: 'Imran',
-	lastName: 'Sayed',
-	address1: '123 Abc farm',
-	address2: 'Hill Road',
-	city: 'Mumbai',
-	country: 'IN',
-	state: 'Maharastra',
-	postcode: '221029',
-	email: 'codeytek.academy@gmail.com',
-	phone: '9883778278',
-	company: 'The Company',
-	errors: null
-}
-
 // const defaultCustomerInfo = {
-// 	firstName: '',
-// 	lastName: '',
-// 	address1: '',
-// 	address2: '',
-// 	city: '',
-// 	country: '',
-// 	state: '',
-// 	postcode: '',
-// 	email: '',
-// 	phone: '',
-// 	company: '',
+// 	firstName: 'Imran',
+// 	lastName: 'Sayed',
+// 	address1: '123 Abc farm',
+// 	address2: 'Hill Road',
+// 	city: 'Mumbai',
+// 	country: 'IN',
+// 	state: 'Maharastra',
+// 	postcode: '221029',
+// 	email: 'codeytek.academy@gmail.com',
+// 	phone: '9883778278',
+// 	company: 'The Company',
 // 	errors: null
 // }
+
+const defaultCustomerInfo = {
+	firstName: '',
+	lastName: '',
+	address1: '',
+	address2: '',
+	city: '',
+	country: '',
+	state: '',
+	postcode: '',
+	email: '',
+	phone: '',
+	company: '',
+	errors: null
+}
 
 const CheckoutForm = ({countriesData}) => {
 	
@@ -97,7 +97,7 @@ const CheckoutForm = ({countriesData}) => {
 	 * @return {void}
 	 */
 	const handleOnChange = async (event, isShipping = false, isBillingOrShipping = false) => {
-		
+		console.log( 'hey', event.target.value, input );
 		const {target} = event || {};
 		
 		if ('createAccount' === target.name) {
@@ -111,20 +111,20 @@ const CheckoutForm = ({countriesData}) => {
 				await handleBillingChange(target)
 			}
 		} else {
-			// const newState = {...input, [target.name]: target.value};
-			// setInput(newState);
+			const newState = {...input, [target.name]: target.value};
+			setInput(newState);
 		}
 	};
 	
 	const handleShippingChange = async (target) => {
-		// const newState = {...input, shipping: {...input?.shipping, [target.name]: target.value}};
-		// setInput(newState);
+		const newState = {...input, shipping: {...input?.shipping, [target.name]: target.value}};
+		setInput(newState);
 		// await setStatesForCountry(target, setTheShippingStates, setIsFetchingShippingStates);
 	}
 	
 	const handleBillingChange = async (target) => {
-		// const newState = {...input, billing: {...input?.billing, [target.name]: target.value}};
-		// setInput(newState);
+		const newState = {...input, billing: {...input?.billing, [target.name]: target.value}};
+		setInput(newState);
 		// await setStatesForCountry(target, setTheBillingStates, setIsFetchingBillingStates);
 	}
 	
