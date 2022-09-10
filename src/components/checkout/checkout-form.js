@@ -3,7 +3,7 @@ import cx from 'classnames'
 
 import YourOrder from './your-order';
 import PaymentModes from "./payment-modes";
-// import validateAndSanitizeCheckoutForm from '../../validator/checkout';
+import validateAndSanitizeCheckoutForm from '../../validator/checkout';
 // import {getFormattedCart, createCheckoutData,} from "../../functions";
 import OrderSuccess from "./order-success";
 import Address from "./user-address";
@@ -76,15 +76,42 @@ const CheckoutForm = ({countriesData}) => {
 	const [isStripeOrderProcessing, setIsStripeOrderProcessing] = useState(false);
 	const [createdOrderData, setCreatedOrderData] = useState({});
 	
-	/*
+	/**
 	 * Handle form submit.
 	 *
 	 * @param {Object} event Event Object.
 	 *
-	 * @return {void}
+	 * @return Null.
 	 */
 	const handleFormSubmit = async (event) => {
 		event.preventDefault();
+		
+		/**
+		 * Validate Billing and Shipping Details
+		 *
+		 * Note:
+		 * 1. If billing is different than shipping address, only then validate billing.
+		 * 2. We are passing theBillingStates?.length and theShippingStates?.length, so that
+		 * the respective states should only be mandatory, if a country has states.
+		 */
+		const billingValidationResult = input?.billingDifferentThanShipping ? validateAndSanitizeCheckoutForm(input?.billing, theBillingStates?.length) : {errors: null, isValid: true};
+		const shippingValidationResult = validateAndSanitizeCheckoutForm(input?.shipping, theShippingStates?.length);
+		
+		setInput( {
+			...input,
+			billing: { ...input.billing, errors: billingValidationResult.errors },
+			shipping: { ...input.shipping, errors: shippingValidationResult.errors },
+		} );
+		
+		// If there are any errors, return.
+		if ( ! shippingValidationResult.isValid || ! billingValidationResult.isValid ) {
+			return null;
+		}
+		
+		console.log( 'input', input );
+		
+		setRequestError(null);
+		
 	};
 	
 	/*

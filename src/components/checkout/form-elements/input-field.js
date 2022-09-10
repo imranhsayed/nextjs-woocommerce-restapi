@@ -6,8 +6,6 @@ const InputField = ({ handleOnChange, inputValue, name, type, label, errors, pla
 
 	const inputId = `${name}-${isShipping ? 'shipping' : ''}`;
 
-	console.log( 'inputValue', inputValue );
-
 	return (
 		<div className={containerClassNames}>
 			<label className="leading-7 text-sm text-gray-700" htmlFor={inputId}>
