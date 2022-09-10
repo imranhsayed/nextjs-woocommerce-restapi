@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import Abbr from "./abbr";
 
 const InputField = ({ handleOnChange, inputValue, name, type, label, errors, placeholder, required, containerClassNames, isShipping }) => {
-	
+
 	const inputId = `${name}-${isShipping ? 'shipping' : ''}`;
-	
+
 	console.log( 'inputValue', inputValue );
-	
+
 	return (
 		<div className={containerClassNames}>
 			<label className="leading-7 text-sm text-gray-700" htmlFor={inputId}>
