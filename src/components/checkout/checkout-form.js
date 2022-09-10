@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import cx from 'classnames';
 
 import YourOrder from './your-order';
@@ -48,7 +48,6 @@ const defaultCustomerInfo = {
 const CheckoutForm = ( { countriesData } ) => {
 
 	const { billingCountries, shippingCountries } = countriesData || {};
-	console.log( 'billingCountries', billingCountries );
 
 	const initialState = {
 		billing: {
@@ -113,8 +112,6 @@ const CheckoutForm = ( { countriesData } ) => {
 			return null;
 		}
 
-		console.log( 'input', input );
-
 		setRequestError( null );
 
 	};
@@ -161,8 +158,6 @@ const CheckoutForm = ( { countriesData } ) => {
 
 	// Loading state. @TODO To be updated with more options.
 	const isOrderProcessing = isStripeOrderProcessing;
-
-	console.log( 'theShippingStates', theShippingStates );
 
 	return (
 		<>

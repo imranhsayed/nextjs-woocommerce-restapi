@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import Router from 'next/router';
 import Link from 'next/link';
 import axios from 'axios';
-import Layout from '../src/components/Layout';
+import Layout from '../src/components/layout';
 import Loading from '../src/components/icons/Loading';
 import Bag from '../src/components/icons/Bag';
 import { AppContext } from '../src/components/context';

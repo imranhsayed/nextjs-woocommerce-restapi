@@ -1,5 +1,3 @@
-
-
 import Error from "./error";
 
 const PaymentModes = ( { input, handleOnChange } ) => {

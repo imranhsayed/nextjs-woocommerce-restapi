@@ -1,4 +1,4 @@
-import Error from './Error';
+import Error from './error';
 import {isEmpty, map} from "lodash";
 import Abbr from "./form-elements/abbr";
 import ArrowDown from "../icons/ArrowDown";

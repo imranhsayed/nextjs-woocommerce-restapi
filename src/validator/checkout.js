@@ -47,7 +47,6 @@ const validateAndSanitizeCheckoutForm = ( data, hasStates = true ) => {
 		 * Check for error and if there is no error then sanitize data.
 		 */
 		if ( ! validator.isLength( data[ fieldName ], { min, max } ) ){
-			console.log( 'fieldName', fieldName, errorContent );
 			errors[ fieldName ] = `${errorContent} must be ${min} to ${max} characters`;
 		}
 		
