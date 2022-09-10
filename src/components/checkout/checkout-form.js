@@ -9,6 +9,7 @@ import OrderSuccess from "./order-success";
 import Address from "./user-address";
 import { AppContext } from '../context';
 import CheckboxField from './form-elements/checkbox-field';
+import { handleStripeCheckout } from '../../utils/checkout';
 // import {
 // 	handleBillingDifferentThanShipping,
 // 	handleCreateAccount, handleStripeCheckout,
@@ -18,35 +19,35 @@ import CheckboxField from './form-elements/checkbox-field';
 // import CLEAR_CART_MUTATION from "../../mutations/clear-cart";
 
 // Use this for testing purposes, so you dont have to fill the checkout form over an over again.
-// const defaultCustomerInfo = {
-// 	firstName: 'Imran',
-// 	lastName: 'Sayed',
-// 	address1: '123 Abc farm',
-// 	address2: 'Hill Road',
-// 	city: 'Mumbai',
-// 	country: 'IN',
-// 	state: 'Maharastra',
-// 	postcode: '221029',
-// 	email: 'codeytek.academy@gmail.com',
-// 	phone: '9883778278',
-// 	company: 'The Company',
-// 	errors: null
-// }
-
 const defaultCustomerInfo = {
-	firstName: '',
-	lastName: '',
-	address1: '',
-	address2: '',
-	city: '',
-	country: '',
-	state: '',
-	postcode: '',
-	email: '',
-	phone: '',
-	company: '',
+	firstName: 'Imran',
+	lastName: 'Sayed',
+	address1: '123 Abc farm',
+	address2: 'Hill Road',
+	city: 'Mumbai',
+	country: 'IN',
+	state: 'Maharastra',
+	postcode: '221029',
+	email: 'codeytek.academy@gmail.com',
+	phone: '9883778278',
+	company: 'The Company',
 	errors: null
 }
+
+// const defaultCustomerInfo = {
+// 	firstName: '',
+// 	lastName: '',
+// 	address1: '',
+// 	address2: '',
+// 	city: '',
+// 	country: '',
+// 	state: '',
+// 	postcode: '',
+// 	email: '',
+// 	phone: '',
+// 	company: '',
+// 	errors: null
+// }
 
 const CheckoutForm = ({countriesData}) => {
 	
@@ -105,6 +106,11 @@ const CheckoutForm = ({countriesData}) => {
 		
 		// If there are any errors, return.
 		if ( ! shippingValidationResult.isValid || ! billingValidationResult.isValid ) {
+			return null;
+		}
+		
+		if ( 'stripe-mode' === input.paymentMethod ) {
+			const createdOrderData = await handleStripeCheckout( input, cart?.cartItems, setRequestError, setCart, setIsStripeOrderProcessing, setCreatedOrderData );
 			return null;
 		}
 		
