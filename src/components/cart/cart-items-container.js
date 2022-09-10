@@ -11,14 +11,14 @@ const CartItemsContainer = () => {
 	const [ isClearCartProcessing, setClearCartProcessing ] = useState( false );
 	
 	// Clear the entire cart.
-	const handleClearCart = ( event ) => {
+	const handleClearCart = async ( event ) => {
 		event.stopPropagation();
 		
 		if (isClearCartProcessing) {
 			return;
 		}
 		
-		clearCart( setCart, setClearCartProcessing );
+		await clearCart( setCart, setClearCartProcessing );
 
 	};
 	

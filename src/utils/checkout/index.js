@@ -1,8 +1,10 @@
 import { isArray, isEmpty } from 'lodash';
-import { createCheckoutSession } from 'next-stripe/client' // @see https://github.com/ynnoj/next-stripe
-import { loadStripe } from "@stripe/stripe-js";
+import { createCheckoutSession } from 'next-stripe/client'; // @see https://github.com/ynnoj/next-stripe
+import { loadStripe } from '@stripe/stripe-js';
 import { createTheOrder, getCreateOrderData } from './order';
 import { clearCart } from '../cart';
+import axios from 'axios';
+import { WOOCOMMERCE_STATES_ENDPOINT } from '../constants/endpoints';
 
 /**
  * Handle Stripe checkout.
@@ -23,24 +25,21 @@ import { clearCart } from '../cart';
 export const handleStripeCheckout = async ( input, products, setRequestError, setCart, setIsStripeOrderProcessing, setCreatedOrderData ) => {
 	setIsStripeOrderProcessing( true );
 	const orderData = getCreateOrderData( input, products );
-	console.log( 'orderData', orderData, products );
-	const createCustomerOrder = await createTheOrder( orderData, setRequestError, '' );
-	const cartCleared = false;
-	// const cartCleared = await clearCart( setCart, () => {} );
+	const customerOrderData = await createTheOrder( orderData, setRequestError, '' );
+	const cartCleared = await clearCart( setCart, () => {
+	} );
 	setIsStripeOrderProcessing( false );
 	
-	
-	if ( isEmpty( createCustomerOrder?.orderId ) || cartCleared?.error ) {
-		console.log( 'came in' );
+	if ( isEmpty( customerOrderData?.orderId ) || cartCleared?.error ) {
 		setRequestError( 'Clear cart failed' );
 		return null;
 	}
 	
 	// On success show stripe form.
-	setCreatedOrderData( createCustomerOrder );
-	await createCheckoutSessionAndRedirect( products, input, createCustomerOrder?.orderId );
+	setCreatedOrderData( customerOrderData );
+	await createCheckoutSessionAndRedirect( products, input, customerOrderData?.orderId );
 	
-	return createCustomerOrder;
+	return customerOrderData;
 };
 
 /**
@@ -60,7 +59,13 @@ const createCheckoutSessionAndRedirect = async ( products, input, orderId ) => {
 		payment_method_types: [ 'card' ],
 		mode: 'payment',
 	};
-	const session = await createCheckoutSession( sessionData );
+	console.log( 'sessionData', sessionData );
+	let session = {};
+	try {
+		session = await createCheckoutSession( sessionData );
+	} catch ( err ) {
+		console.log( 'createCheckout session error', err );
+	}
 	try {
 		const stripe = await loadStripe( process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY );
 		if ( stripe ) {
@@ -84,10 +89,10 @@ const getStripeLineItems = ( products ) => {
 	
 	return products.map( product => {
 		return {
-			quantity: product?.qty ?? 0,
-			name: product?.name ?? '',
-			images: [ product?.image?.sourceUrl ?? '' ],
-			amount: Math.round( product?.price * 100 ),
+			quantity: product?.quantity ?? 0,
+			name: product?.data?.name ?? '',
+			images: [ product?.data?.images?.[ 0 ]?.src ?? '' ?? '' ],
+			amount: Math.round( ( product?.line_subtotal ?? 0 ) * 100 ),
 			currency: 'usd',
 		};
 	} );
@@ -104,8 +109,8 @@ const getStripeLineItems = ( products ) => {
 export const getMetaData = ( input, orderId ) => {
 	
 	return {
-		billing: JSON.stringify(input?.billing),
-		shipping: JSON.stringify(input.billingDifferentThanShipping ? input?.billing?.email : input?.shipping?.email),
+		billing: JSON.stringify( input?.billing ),
+		shipping: JSON.stringify( input.billingDifferentThanShipping ? input?.billing?.email : input?.shipping?.email ),
 		orderId,
 	};
 	
@@ -114,4 +119,66 @@ export const getMetaData = ( input, orderId ) => {
 	//     metadata.customerId = customerId;
 	// }
 	
-}
+};
+
+/**
+ * Handle Billing Different Than Shipping.
+ *
+ * @param input
+ * @param setInput
+ * @param target
+ */
+export const handleBillingDifferentThanShipping = ( input, setInput, target ) => {
+	const newState = { ...input, [ target.name ]: ! input.billingDifferentThanShipping };
+	setInput( newState );
+};
+
+/**
+ * Handle Create Account.
+ *
+ * @param input
+ * @param setInput
+ * @param target
+ */
+export const handleCreateAccount = ( input, setInput, target ) => {
+	const newState = { ...input, [ target.name ]: ! input.createAccount };
+	setInput( newState );
+};
+
+/**
+ * Set states for the country.
+ *
+ * @param {Object} target Target.
+ * @param {Function} setTheStates React useState function to set the value of the states basis country selection.
+ * @param {Function} setIsFetchingStates React useState function, to manage loading state when request is in process.
+ *
+ * @return {Promise<void>}
+ */
+export const setStatesForCountry = async ( target, setTheStates, setIsFetchingStates ) => {
+	if ( 'country' === target.name ) {
+		setIsFetchingStates( true );
+		const countryCode = target[ target.selectedIndex ].getAttribute( 'data-countrycode' );
+		const states = await getStates( countryCode );
+		setTheStates( states || [] );
+		setIsFetchingStates( false );
+	}
+};
+
+/**
+ * Get states
+ *
+ * @param {String} countryCode Country code
+ *
+ * @returns {Promise<*[]>}
+ */
+export const getStates = async ( countryCode = '' ) => {
+	
+	if ( ! countryCode ) {
+		return [];
+	}
+	
+	const { data } = await axios.get( WOOCOMMERCE_STATES_ENDPOINT, { params: { countryCode } } );
+	
+	return data?.states ?? [];
+};
+

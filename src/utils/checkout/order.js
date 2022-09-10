@@ -13,8 +13,6 @@ export const getCreateOrderLineItems = ( products ) => {
 		return [];
 	}
 	
-	console.log( 'products', products );
-	
 	return products?.map(
 		( { product_id, quantity } ) => {
 			return {
