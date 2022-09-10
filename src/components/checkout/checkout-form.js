@@ -97,7 +97,6 @@ const CheckoutForm = ({countriesData}) => {
 	 * @return {void}
 	 */
 	const handleOnChange = async (event, isShipping = false, isBillingOrShipping = false) => {
-		console.log( 'hey', event.target.value, input );
 		const {target} = event || {};
 		
 		if ('createAccount' === target.name) {

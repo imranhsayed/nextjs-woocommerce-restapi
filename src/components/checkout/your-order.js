@@ -19,22 +19,17 @@ const YourOrder = ( { cart } ) => {
 						</tr>
 						</thead>
 						<tbody>
-						{ cart?.products?.length && (
-							cart.products.map( item => (
-								<CheckoutCartItem key={ item.productId } item={ item } />
+						{ cart?.cartItems?.length && (
+							cart.cartItems.map( ( item, index ) => (
+								<CheckoutCartItem key={ item?.productId ?? index } item={ item } />
 							) )
 						) }
 						{/*Total*/}
 						<tr className="bg-gray-200">
 							<td className=""/>
-							<td className="woo-next-checkout-total font-normal text-xl">Subtotal</td>
-							<td className="woo-next-checkout-total font-bold text-xl">{ cart.totalProductsPrice }</td>
+							<td className="woo-next-checkout-total font-normal text-xl">Total</td>
+							<td className="woo-next-checkout-total font-bold text-xl">{ cart?.cartItems?.[ 0 ]?.currency ?? '' }{ cart?.totalPrice ?? '' }</td>
 						</tr>
-						{/* <tr className="">
-							<td className=""/>
-							<td className="woo-next-checkout-total">Total</td>
-							<td className="woo-next-checkout-total">{ cart.totalProductsPrice }</td>
-						</tr> */}
 						</tbody>
 					</table>
 				</Fragment>
