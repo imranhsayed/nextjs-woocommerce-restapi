@@ -49,7 +49,7 @@ const PaymentModes = ( { input, handleOnChange } ) => {
 			</div>
 			<div className="form-check woo-next-payment-input-container mt-2">
 				<label className="form-check-label">
-					<input onChange={ handleOnChange } value="stripe-mode" className="form-check-input mr-3" name="paymentMethod" type="radio" checked={'stripe-mode' === paymentMethod}/>
+					<input onChange={ handleOnChange } value="stripe" className="form-check-input mr-3" name="paymentMethod" type="radio" checked={'stripe' === paymentMethod}/>
 					<span className="woo-next-payment-content">Stripe</span>
 				</label>
 			</div>

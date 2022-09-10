@@ -63,8 +63,8 @@ export const getCreateOrderData = ( order, products ) => {
 			phone: billingData?.phone,
 			company: billingData?.company,
 		},
-		payment_method: 'stripe',
-		payment_method_title: 'Stripe',
+		payment_method: order?.paymentMethod,
+		payment_method_title: order?.paymentMethod,
 		line_items: getCreateOrderLineItems( products ),
 	};
 };
@@ -111,6 +111,7 @@ export const createTheOrder = async ( orderData, setOrderFailedError, previousRe
 		response.orderId = result?.orderId ?? '';
 		response.total = result.total ?? '';
 		response.currency = result.currency ?? '';
+		response.paymentUrl = result.paymentUrl ?? '';
 		
 	} catch ( error ) {
 		// @TODO to be handled later.

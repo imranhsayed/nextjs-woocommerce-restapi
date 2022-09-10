@@ -4,46 +4,45 @@ import cx from 'classnames';
 import YourOrder from './your-order';
 import PaymentModes from './payment-modes';
 import validateAndSanitizeCheckoutForm from '../../validator/checkout';
-import OrderSuccess from './order-success';
 import Address from './user-address';
 import { AppContext } from '../context';
 import CheckboxField from './form-elements/checkbox-field';
 import {
 	handleBillingDifferentThanShipping,
-	handleCreateAccount, handleStripeCheckout,
+	handleCreateAccount, handleOtherPaymentMethodCheckout, handleStripeCheckout,
 	setStatesForCountry,
 } from '../../utils/checkout';
 
 // Use this for testing purposes, so you dont have to fill the checkout form over an over again.
-// const defaultCustomerInfo = {
-// 	firstName: 'Imran',
-// 	lastName: 'Sayed',
-// 	address1: '123 Abc farm',
-// 	address2: 'Hill Road',
-// 	city: 'Mumbai',
-// 	country: 'IN',
-// 	state: 'Maharastra',
-// 	postcode: '221029',
-// 	email: 'codeytek.academy@gmail.com',
-// 	phone: '9883778278',
-// 	company: 'The Company',
-// 	errors: null,
-// };
-
 const defaultCustomerInfo = {
-	firstName: '',
-	lastName: '',
-	address1: '',
-	address2: '',
-	city: '',
-	country: '',
-	state: '',
-	postcode: '',
-	email: '',
-	phone: '',
-	company: '',
-	errors: null
-}
+	firstName: 'Imran',
+	lastName: 'Sayed',
+	address1: '123 Abc farm',
+	address2: 'Hill Road',
+	city: 'Mumbai',
+	country: 'IN',
+	state: 'Maharastra',
+	postcode: '221029',
+	email: 'codeytek.academy@gmail.com',
+	phone: '9883778278',
+	company: 'The Company',
+	errors: null,
+};
+
+// const defaultCustomerInfo = {
+// 	firstName: '',
+// 	lastName: '',
+// 	address1: '',
+// 	address2: '',
+// 	city: '',
+// 	country: '',
+// 	state: '',
+// 	postcode: '',
+// 	email: '',
+// 	phone: '',
+// 	company: '',
+// 	errors: null
+// }
 
 const CheckoutForm = ( { countriesData } ) => {
 
@@ -69,7 +68,7 @@ const CheckoutForm = ( { countriesData } ) => {
 	const [ isFetchingShippingStates, setIsFetchingShippingStates ] = useState( false );
 	const [ theBillingStates, setTheBillingStates ] = useState( [] );
 	const [ isFetchingBillingStates, setIsFetchingBillingStates ] = useState( false );
-	const [ isStripeOrderProcessing, setIsStripeOrderProcessing ] = useState( false );
+	const [ isOrderProcessing, setIsOrderProcessing ] = useState( false );
 	const [ createdOrderData, setCreatedOrderData ] = useState( {} );
 
 	/**
@@ -107,9 +106,18 @@ const CheckoutForm = ( { countriesData } ) => {
 			return null;
 		}
 
-		if ( 'stripe-mode' === input.paymentMethod ) {
-			const createdOrderData = await handleStripeCheckout( input, cart?.cartItems, setRequestError, setCart, setIsStripeOrderProcessing, setCreatedOrderData );
+		// For stripe payment mode, handle the strip payment and thank you.
+		if ( 'stripe' === input.paymentMethod ) {
+			const createdOrderData = await handleStripeCheckout( input, cart?.cartItems, setRequestError, setCart, setIsOrderProcessing, setCreatedOrderData );
 			return null;
+		}
+		
+		// For Any other payment mode, create the order and redirect the user to payment url.
+		const createdOrderData = await handleOtherPaymentMethodCheckout( input, cart?.cartItems, setRequestError, setCart, setIsOrderProcessing, setCreatedOrderData );
+		
+		if ( createdOrderData.paymentUrl ) {
+			console.log( 'hey', createdOrderData );
+			window.location.href = createdOrderData.paymentUrl;
 		}
 
 		setRequestError( null );
@@ -155,9 +163,6 @@ const CheckoutForm = ( { countriesData } ) => {
 		setInput( newState );
 		await setStatesForCountry( target, setTheBillingStates, setIsFetchingBillingStates );
 	};
-
-	// Loading state. @TODO To be updated with more options.
-	const isOrderProcessing = isStripeOrderProcessing;
 
 	return (
 		<>
@@ -234,8 +239,6 @@ const CheckoutForm = ( { countriesData } ) => {
 					</div>
 				</form>
 			) : null }
-			{/*	Show message if Order Success @TODO To be updated*/ }
-			<OrderSuccess response={ null }/>
 		</>
 	);
 };

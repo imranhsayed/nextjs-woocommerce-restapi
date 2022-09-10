@@ -47,6 +47,7 @@ export default async function handler( req, res ) {
 		responseData.orderId = data.number;
 		responseData.total = data.total;
 		responseData.currency = data.currency;
+		responseData.paymentUrl = data.payment_url;
 		
 		res.json( responseData );
 		

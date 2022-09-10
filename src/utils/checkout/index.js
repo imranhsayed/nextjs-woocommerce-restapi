@@ -7,6 +7,35 @@ import axios from 'axios';
 import { WOOCOMMERCE_STATES_ENDPOINT } from '../constants/endpoints';
 
 /**
+ * Handle Other Payment Method checkout.
+ *
+ * @param input
+ * @param products
+ * @param setRequestError
+ * @param setCart
+ * @param setIsOrderProcessing
+ * @param setCreatedOrderData
+ * @return {Promise<{orderId: null, error: string}|null>}
+ */
+export const handleOtherPaymentMethodCheckout = async ( input, products, setRequestError, setCart, setIsOrderProcessing, setCreatedOrderData ) => {
+	setIsOrderProcessing( true );
+	const orderData = getCreateOrderData( input, products);
+	const customerOrderData = await createTheOrder( orderData, setRequestError, '' );
+	const cartCleared = await clearCart( setCart, () => {
+	} );
+	setIsOrderProcessing( false );
+	
+	if ( isEmpty( customerOrderData?.orderId ) || cartCleared?.error ) {
+		setRequestError( 'Clear cart failed' );
+		return null;
+	}
+	
+	setCreatedOrderData( customerOrderData );
+	
+	return customerOrderData;
+};
+
+/**
  * Handle Stripe checkout.
  *
  * 1. Create Formatted Order data.
@@ -18,17 +47,17 @@ import { WOOCOMMERCE_STATES_ENDPOINT } from '../constants/endpoints';
  * @param products
  * @param setRequestError
  * @param setCart
- * @param setIsStripeOrderProcessing
+ * @param setIsProcessing
  *
  * @param setCreatedOrderData
  */
-export const handleStripeCheckout = async ( input, products, setRequestError, setCart, setIsStripeOrderProcessing, setCreatedOrderData ) => {
-	setIsStripeOrderProcessing( true );
+export const handleStripeCheckout = async ( input, products, setRequestError, setCart, setIsProcessing, setCreatedOrderData ) => {
+	setIsProcessing( true );
 	const orderData = getCreateOrderData( input, products );
 	const customerOrderData = await createTheOrder( orderData, setRequestError, '' );
 	const cartCleared = await clearCart( setCart, () => {
 	} );
-	setIsStripeOrderProcessing( false );
+	setIsProcessing( false );
 	
 	if ( isEmpty( customerOrderData?.orderId ) || cartCleared?.error ) {
 		setRequestError( 'Clear cart failed' );
