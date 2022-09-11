@@ -61,6 +61,10 @@ npm run dev
 2. In your WordPress Dashboard, Go to Settings > General > Site Address (URL) ( Set this to Frontend URL e.g. http://localhost:3000 during development )
 3. Create the Header and Footer Menus In WordPress Dashboard and set them to HCMS Header menu and HCMS Footer Menu respectively.
 
+## Useful Links
+- [Stripe](https://dashboard.stripe.com/)
+- [Getting Stripe API Keys](https://codeytek.com/create-stripe-checkout-in-next-js-stripe-session-stripe-webhook/)
+
 ## Versioning :bookmark_tabs:
 
 I use [Git](https://github.com/) for versioning.
