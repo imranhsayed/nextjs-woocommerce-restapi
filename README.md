@@ -15,16 +15,17 @@
 2. Post Preview ( Coming Soon )
 3. Product Pagination ( Coming Soon )
 4. Load More Products ( Coming Soon )
-8. REST API endpoints.
-9. Header and Footer in Next.js fetching from WordPress Menu items.
-10. WordPress Widgets displayed on Next.js frontend.
-11. Site title, tagline, copyright text, social links sourced from WordPress.
-12. Next.js Image component, that has image optimization at request time ( Coming Soon )
-13. Authentication with JWT and Http Only Cookie implementation. ( Coming Soon )
-14. Login feature for WP Post Preview in Next.js ( Coming Soon )
-15. Incremental Static (Re)generation and automatic creation of New Static post pages
+5. REST API endpoints.
+6. Header and Footer in Next.js fetching from WordPress Menu items.
+7. WordPress Widgets displayed on Next.js frontend.
+8. Site title, tagline, copyright text, social links sourced from WordPress.
+9. Next.js Image component, that has image optimization at request time
+10. Authentication with JWT and Http Only Cookie implementation. ( Coming Soon )
+11. Login feature for WP Post Preview in Next.js ( Coming Soon )
+12. Incremental Static (Re)generation and automatic creation of New Static post pages
     without having to re-build next.js the application. ( Coming Soon )
-14. Gutenberg styles support ( Coming Soon )
+13. Gutenberg styles support
+14. Checkout Page with Stripe Payment Gateway Integration.
 
 ## [Tutorial Course](https://www.youtube.com/playlist?list=PLD8nQCAhR3tSRwsvzRtogv9MFkEWo5d9c)
 
