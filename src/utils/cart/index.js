@@ -116,20 +116,19 @@ export const deleteCartItem = ( cartKey, setCart, setRemovingProduct ) => {
  * @param {Function} setCart Set Cart
  * @param {Function} setClearCartProcessing Set Clear Cart Processing.
  */
-export const clearCart = ( setCart, setClearCartProcessing ) => {
+export const clearCart = async ( setCart, setClearCartProcessing ) => {
 	
 	setClearCartProcessing(true);
 	
 	const addOrViewCartConfig = getApiCartConfig();
 	
-	axios.delete( CART_ENDPOINT, addOrViewCartConfig )
-		.then( ( res ) => {
-			viewCart( setCart, setClearCartProcessing )
-		} )
-		.catch( err => {
-			console.log( 'err', err );
-			setClearCartProcessing(false);
-		} );
+	try {
+		const response = await axios.delete( CART_ENDPOINT, addOrViewCartConfig );
+		viewCart( setCart, setClearCartProcessing );
+	} catch ( err ) {
+		console.log( 'err', err );
+		setClearCartProcessing(false);
+	}
 };
 
 /**
