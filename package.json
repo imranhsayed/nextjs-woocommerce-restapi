@@ -27,6 +27,8 @@
     "validator": "^13.7.0"
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.8",
+    "postcss": "^8.4.16",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-import": "^14.1.0",
     "postcss-preset-env": "^6.7.1",
