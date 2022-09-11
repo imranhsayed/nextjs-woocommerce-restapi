@@ -38,7 +38,7 @@ First clone/fork the repo and cd into it.
 ```bash
 git clone https://github.com/imranhsayed/nextjs-woocommerce-restapi.git
 cd nextjs-woocommerce-restapi
-npm install
+npm ci
 npm run dev
 ```
 
