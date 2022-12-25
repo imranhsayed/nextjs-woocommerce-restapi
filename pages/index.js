@@ -12,9 +12,6 @@ import { getProductsData } from '../src/utils/products';
 import Layout from '../src/components/layout';
 
 export default function Home({ headerFooter, products }) {
-	
-	console.log( 'products', products );
-	
 	return (
 		<Layout headerFooter={headerFooter || {}}>
 			<Products products={products}/>
