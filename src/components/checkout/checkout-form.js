@@ -116,7 +116,6 @@ const CheckoutForm = ( { countriesData } ) => {
 		const createdOrderData = await handleOtherPaymentMethodCheckout( input, cart?.cartItems, setRequestError, setCart, setIsOrderProcessing, setCreatedOrderData );
 		
 		if ( createdOrderData.paymentUrl ) {
-			console.log( 'hey', createdOrderData );
 			window.location.href = createdOrderData.paymentUrl;
 		}
 

@@ -25,7 +25,8 @@
 12. Incremental Static (Re)generation and automatic creation of New Static post pages
     without having to re-build next.js the application. ( Coming Soon )
 13. Gutenberg styles support
-14. Checkout Page with Stripe Payment Gateway Integration.
+14. Single Product Page With Gallery Carousel.
+15. Checkout Page with Stripe Payment Gateway Integration.
 
 ## [Tutorial Course](https://www.youtube.com/playlist?list=PLD8nQCAhR3tSRwsvzRtogv9MFkEWo5d9c)
 
