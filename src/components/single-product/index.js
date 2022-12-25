@@ -6,7 +6,6 @@ import ExternalLink from '../products/external-link';
 import ProductGallery from './product-gallery';
 
 const SingleProduct = ( { product } ) => {
-	console.log( 'product', product );
 	return Object.keys( product ).length ? (
 		<div className="single-product container mx-auto my-32 px-4 xl:px-0">
 			<div className="grid md:grid-cols-2 gap-4">
