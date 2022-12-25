@@ -12,7 +12,7 @@ import SingleProduct from '../../src/components/single-product';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
-export default function Home( { headerFooter, product } ) {
+export default function Product( { headerFooter, product } ) {
 	
 	const router = useRouter();
 	
@@ -47,6 +47,7 @@ export async function getStaticProps( { params } ) {
 export async function getStaticPaths() {
 	const { data: products } = await getProductsData();
 	
+	// Expected Data Shape: [{ params: { slug: 'pendant' } }, { params: { slug: 'shirt' } }],
 	const pathsData = [];
 	
 	products.length && products.map( ( product ) => {
