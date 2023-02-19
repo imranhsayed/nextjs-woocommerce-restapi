@@ -12,8 +12,18 @@ import { getProductsData } from '../src/utils/products';
 import Layout from '../src/components/layout';
 
 export default function Home({ headerFooter, products }) {
+	const seo = {
+		title: 'Next JS WooCommerce REST API',
+		description: 'Next JS WooCommerce Theme',
+		og_image: [],
+		og_site_name: 'React WooCommerce Theme',
+		robots: {
+			index: 'index',
+			follow: 'follow',
+		},
+	}
 	return (
-		<Layout headerFooter={headerFooter || {}}>
+		<Layout headerFooter={ headerFooter || {} } seo={ seo }>
 			<Products products={products}/>
 		</Layout>
 	)
