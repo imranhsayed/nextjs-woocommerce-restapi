@@ -23,13 +23,17 @@ const Layout = ({children, headerFooter, seo, uri }) => {
 			<div>
 				<Seo seo={ seo || {} } uri={ uri || '' }/>
 				<Head>
-					{ header?.favicon ? <link rel="shortcut icon" href={ header.favicon }/> : null }
-					{ yoastSchema ? ( <script
-							type="application/ld+json"
-							className="yoast-schema-graph"
-							key="yoastSchema"
-							dangerouslySetInnerHTML={ { __html: sanitize( yoastSchema ) } }
-						/> ) : null }
+					<link rel="shortcut icon" href={ header?.favicon ?? '/favicon.ico' }/>
+					{
+						yoastSchema ?
+							( <script
+								type="application/ld+json"
+								className="yoast-schema-graph"
+								key="yoastSchema"
+								dangerouslySetInnerHTML={ { __html: sanitize( yoastSchema ) } }
+							/> ) :
+							<title>{ header?.siteTitle ?? 'Nexts WooCommerce' }</title>
+					}
 				</Head>
 				<Header header={header}/>
 				<main className="container mx-auto py-4 min-h-50vh">
