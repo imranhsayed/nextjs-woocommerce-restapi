@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import Link from 'next/link';
 import { useContext, useState } from 'react';
 import { isEmpty } from 'lodash';
@@ -9,16 +8,12 @@ import { AppContext } from '../../context';
 const Header = ( { header } ) => {
 	
 	const [ cart, setCart ] = useContext( AppContext );
-	const { headerMenuItems, siteDescription, siteLogoUrl, siteTitle, favicon } = header || {};
+	const { headerMenuItems, siteDescription, siteLogoUrl, siteTitle } = header || {};
 	
 	const [ isMenuVisible, setMenuVisibility ] = useState( false );
 	
 	return (
 		<>
-			<Head>
-				<title>{ siteTitle || 'Nexts WooCommerce' }</title>
-				<link rel="icon" href={ favicon || '/favicon.ico' }/>
-			</Head>
 			<div className="header">
 				<nav className="bg-white py-5">
 					<div className="flex items-center justify-between flex-wrap container mx-auto">
