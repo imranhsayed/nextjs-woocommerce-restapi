@@ -16,20 +16,19 @@ import { sanitize } from '../../utils/miscellaneous';
 
 const Layout = ({children, headerFooter, seo, uri }) => {
 	const { header, footer } = headerFooter || {};
+
 	return (
 		<AppProvider>
 			<div>
 				<Seo seo={ seo || {} } uri={ uri || '' }/>
 				<Head>
-					<link rel="shortcut icon" href={header?.favicon}/>
-					{seo?.schema ? (
-						<script
-							type='application/ld+json'
-							className='yoast-schema-graph'
-							key='yoastSchema'
-							dangerouslySetInnerHTML={{__html: sanitize( JSON.stringify( seo.schema ) )}}
-						/>
-					) : null}
+					{ header?.favicon ? <link rel="shortcut icon" href={ header.favicon }/> : null }
+					{ seo?.schema ? ( <script
+							type="application/ld+json"
+							className="yoast-schema-graph"
+							key="yoastSchema"
+							dangerouslySetInnerHTML={ { __html: sanitize( JSON.stringify( seo.schema ) ) } }
+						/> ) : null }
 				</Head>
 				<Header header={header}/>
 				<main className="container mx-auto py-4 min-h-50vh">
