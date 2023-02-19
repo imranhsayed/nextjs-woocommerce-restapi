@@ -13,6 +13,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 
 export default function Product( { headerFooter, product } ) {
+	console.log( 'product', product );
 	
 	const router = useRouter();
 	
@@ -23,7 +24,11 @@ export default function Product( { headerFooter, product } ) {
 	}
 	
 	return (
-		<Layout headerFooter={ headerFooter || {} }>
+		<Layout
+			headerFooter={ headerFooter || {} }
+			seo={ product?.yoast_head_json ?? {} }
+			uri={ `/product/${ product?.slug ?? '' }` }
+		>
 			<SingleProduct product={ product }/>
 		</Layout>
 	);

@@ -8,5 +8,5 @@ import DOMPurify from 'dompurify';
  * @return {string} Sanitized string
  */
 export const sanitize = ( content ) => {
-	return process.browser ? DOMPurify.sanitize( content ) : content;
+	return 'undefined' !== typeof window ? DOMPurify.sanitize( content ) : content;
 };
