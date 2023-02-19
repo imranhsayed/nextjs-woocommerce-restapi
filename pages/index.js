@@ -23,7 +23,7 @@ export default function Home({ headerFooter, products }) {
 		},
 	}
 	return (
-		<Layout headerFooter={headerFooter || {}} seo={seo}>
+		<Layout headerFooter={ headerFooter || {} } seo={ seo }>
 			<Products products={products}/>
 		</Layout>
 	)

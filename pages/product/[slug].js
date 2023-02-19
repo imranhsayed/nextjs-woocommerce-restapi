@@ -13,7 +13,6 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 
 export default function Product( { headerFooter, product } ) {
-	console.log( 'product', product );
 	
 	const router = useRouter();
 	
