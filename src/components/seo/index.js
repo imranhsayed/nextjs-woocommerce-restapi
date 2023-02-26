@@ -30,7 +30,7 @@ const Seo = ( { seo, uri } ) => {
 	} = seo || {};
 
 	const currentLocation = 'undefined' !== typeof window ? window.location.origin : null;
-	const opengraphUrl = ( process.env.NEXT_PUBLIC_NEXTJS_SITE_URL ? process.env.NEXT_PUBLIC_NEXTJS_SITE_URL : currentLocation ) + uri;
+	const opengraphUrl = ( process.env.NEXT_PUBLIC_SITE_URL ? process.env.NEXT_PUBLIC_SITE_URL : currentLocation ) + uri;
 	
 	return (
 		<NextSeo
