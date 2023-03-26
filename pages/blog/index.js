@@ -1,17 +1,23 @@
-import Layout from '../../src/components/layout';
-// import { PER_PAGE_FIRST, totalPagesCount } from '../../src/utils/pagination';
-// import Pagination from '../../src/components/blog/pagination';
-// import Posts from '../../src/components/blog/posts';
+/**
+ * External Dependencies.
+ */
 import axios from 'axios';
-import { GET_POSTS_ENDPOINT, HEADER_FOOTER_ENDPOINT } from '../../src/utils/constants/endpoints';
-import { getPosts } from '../../src/utils/blog';
 
-const Blog = ( { headerFooter } ) => {
-	// const pagesCount = totalPagesCount( data?.posts?.pageInfo?.offsetPagination?.total ?? 0 );
+/**
+ * Internal Dependencies.
+ */
+import Layout from '../../src/components/layout';
+import { HEADER_FOOTER_ENDPOINT } from '../../src/utils/constants/endpoints';
+import { getPosts } from '../../src/utils/blog';
+import Posts from '../../src/components/posts';
+
+const Blog = ( { headerFooter, postsData } ) => {
+	console.log( 'postsData', postsData );
 	return (
 		<Layout headerFooter={ headerFooter || {} } seo={null}>
-			{/*<Posts posts={data?.posts?.edges ?? []}/>*/}
-			{/*<Pagination pagesCount={pagesCount} postName="blog" />*/}
+			<h1>Blog</h1>
+			<Posts posts={postsData?.posts_data ?? []}/>
+			{/*<Pagination pagesCount={postsData?.page_count} postName="blog" />*/}
 		</Layout>
 	);
 };
