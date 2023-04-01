@@ -7,7 +7,6 @@ import axios from 'axios';
 /**
  * Internal Dependencies.
  */
-import { getPageOffset, PER_PAGE_FIRST, PER_PAGE_REST } from '../../../src/utils/pagination';
 import { handleRedirectsAndReturnData } from '../../../src/utils/slug';
 import { getPosts } from '../../../src/utils/blog';
 import { HEADER_FOOTER_ENDPOINT } from '../../../src/utils/constants/endpoints';
