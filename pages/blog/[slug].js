@@ -10,7 +10,7 @@ import axios from 'axios';
  */
 import Layout from '../../src/components/layout';
 import { FALLBACK, handleRedirectsAndReturnData } from '../../src/utils/slug';
-import { sanitize } from '../../src/utils/miscellaneous';
+import { getFormattedDate, sanitize } from '../../src/utils/miscellaneous';
 import { HEADER_FOOTER_ENDPOINT } from '../../src/utils/constants/endpoints';
 import { getPost, getPosts } from '../../src/utils/blog';
 import Image from '../../src/components/image';
@@ -18,6 +18,8 @@ import PostMeta from '../../src/components/post-meta';
 
 const Post = ( { headerFooter, postData } ) => {
 	const router = useRouter();
+	
+	console.log( 'postData', postData );
 
 	/**
 	 * If the page is not yet generated, this will be displayed
@@ -28,20 +30,21 @@ const Post = ( { headerFooter, postData } ) => {
 	}
 
 	return (
-		<Layout headerFooter={ headerFooter || {} } seo={ null }>
+		<Layout headerFooter={ headerFooter || {} } seo={ postData?.yoast_head_json ?? {} }>
 			<div className="mb-8 w-4/5 m-auto">
 				<figure className="overflow-hidden mb-4">
 					<Image
-						sourceUrl={ postData?.attachment_image?.img_src?.[ 0 ] ?? '' }
-						title={ postData?.title ?? '' }
-						width={ postData?.attachment_image?.img_src?.[ 1 ] ?? '600' }
-						height={ postData?.attachment_image?.img_src?.[ 2 ] ?? '400' }
+						sourceUrl={ postData?._embedded[ 'wp:featuredmedia' ]?.[ 0 ]?.source_url ?? '' }
+						title={ postData?.title?.rendered ?? '' }
+						width="600"
+						height="400"
 						layout="fill"
 						containerClassNames="w-full h-600px"
 					/>
 				</figure>
-				<PostMeta post={ postData }/>
-				<div dangerouslySetInnerHTML={ { __html: sanitize( postData?.content ?? '' ) } }/>
+				<PostMeta date={ getFormattedDate( postData?.date ?? '' ) } authorName={ postData?._embedded?.author?.[0]?.name ?? '' }/>
+				<h1 dangerouslySetInnerHTML={ { __html: sanitize( postData?.title?.rendered ?? '' ) } }/>
+				<div dangerouslySetInnerHTML={ { __html: sanitize( postData?.content?.rendered ?? '' ) } }/>
 			</div>
 		</Layout>
 	);
@@ -51,13 +54,13 @@ export default Post;
 
 export async function getStaticProps( { params } ) {
 	const { data: headerFooterData } = await axios.get( HEADER_FOOTER_ENDPOINT );
-	const { data: postData } = await getPost( params?.slug ?? '' );
-	// params?.slug ?? ''
+	// const { data: postData } = await getPost( params?.slug ?? '' );
+	const postData = await getPost( params?.slug ?? '' );
 
 	const defaultProps = {
 		props: {
 			headerFooter: headerFooterData?.data ?? {},
-			postData: postData?.post_data ?? {}
+			postData: postData?.[0] ?? {}
 		},
 		/**
 		 * Revalidate means that if a new request comes to server, then every 1 sec it will check
@@ -67,7 +70,7 @@ export async function getStaticProps( { params } ) {
 		revalidate: 1,
 	};
 
-	return handleRedirectsAndReturnData( defaultProps, postData, 'post_data' );
+	return handleRedirectsAndReturnData( defaultProps, postData );
 }
 
 /**

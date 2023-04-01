@@ -32,7 +32,7 @@ const Post = ( { post } ) => {
 				</figure>
 				</a>
 			</Link>
-			<PostMeta post={ post }/>
+			<PostMeta date={ post?.date ?? '' } authorName={ post?.meta?.author_name ?? '' }/>
 			<Link href={ `/blog/${ post?.slug }/` }>
 				<a>
 					<h2 className="font-bold mb-3 text-lg text-brand-gun-powder font-bold uppercase hover:text-blue-500"

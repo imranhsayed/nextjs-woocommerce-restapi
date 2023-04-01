@@ -1,5 +1,6 @@
 import { NextSeo } from 'next-seo';
 import PropTypes from 'prop-types';
+import { isArray } from 'lodash';
 
 /**
  * Custom SEO component
@@ -52,7 +53,7 @@ const Seo = ( { seo, uri } ) => {
 				description: og_description,
 				images: [
 					{
-						url: og_image.length ? ( og_image[0]?.url ?? '' ) : '',
+						url: isArray( og_image ) ? ( og_image[0]?.url ?? '' ) : '',
 						width: 1280,
 						height: 720,
 					},

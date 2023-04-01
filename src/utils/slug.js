@@ -26,7 +26,7 @@ export const isCustomPageUri = ( uri ) => {
  * @param field
  * @return {{notFound: boolean}|*|{redirect: {destination: string, statusCode: number}}}
  */
-export const handleRedirectsAndReturnData = ( defaultProps, data, field ) => {
+export const handleRedirectsAndReturnData = ( defaultProps, data, field = '' ) => {
 	
 	// If no data is available then redirect to 503.
 	if ( isEmpty( data ) ) {
