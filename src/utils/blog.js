@@ -17,7 +17,6 @@ export const getPosts = async ( pageNo = 1 ) => {
 	return await axios.get( `${ GET_POSTS_ENDPOINT }?page_no=${ pageNo }` )
 		.then( res => {
 			if ( 200 === res.data.status ) {
-				console.log( 'red', res );
 				return res;
 			} else {
 				return {
@@ -44,7 +43,6 @@ export const getPost = async ( postSlug = '' ) => {
 	return await axios.get( `${ GET_POST_ENDPOINT }?post_slug=${ postSlug }` )
 		.then( res => {
 			if ( 200 === res.data.status ) {
-				console.log( 'res', res );
 				return res;
 			} else {
 				return {
