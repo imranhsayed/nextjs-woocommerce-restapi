@@ -7,9 +7,10 @@ import axios from 'axios';
  * Internal Dependencies.
  */
 import Layout from '../../src/components/layout';
+import Posts from '../../src/components/posts';
+import Pagination from '../../src/components/pagination';
 import { HEADER_FOOTER_ENDPOINT } from '../../src/utils/constants/endpoints';
 import { getPosts } from '../../src/utils/blog';
-import Posts from '../../src/components/posts';
 
 const Blog = ( { headerFooter, postsData } ) => {
 	console.log( 'postsData', postsData );
@@ -17,7 +18,7 @@ const Blog = ( { headerFooter, postsData } ) => {
 		<Layout headerFooter={ headerFooter || {} } seo={null}>
 			<h1>Blog</h1>
 			<Posts posts={postsData?.posts_data ?? []}/>
-			{/*<Pagination pagesCount={postsData?.page_count} postName="blog" />*/}
+			<Pagination pagesCount={postsData?.page_count} postName="blog" />
 		</Layout>
 	);
 };
