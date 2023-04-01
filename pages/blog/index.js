@@ -19,12 +19,11 @@ import { getPosts } from '../../src/utils/blog';
  * @param {Object} postsData Post Data.
  */
 const Blog = ( { headerFooter, postsData } ) => {
-	console.log( 'postsData', postsData );
 	return (
-		<Layout headerFooter={ headerFooter || {} } seo={null}>
+		<Layout headerFooter={ headerFooter || {} } seo={ null }>
 			<h1>Blog</h1>
-			<Posts posts={postsData?.posts_data ?? []}/>
-			<Pagination pagesCount={postsData?.page_count} postName="blog" />
+			<Posts posts={ postsData?.posts_data ?? [] }/>
+			<Pagination pagesCount={ postsData?.page_count } postName="blog"/>
 		</Layout>
 	);
 };
@@ -38,7 +37,7 @@ export async function getStaticProps() {
 	return {
 		props: {
 			headerFooter: headerFooterData?.data ?? {},
-			postsData: postsData || {}
+			postsData: postsData || {},
 		},
 		
 		/**

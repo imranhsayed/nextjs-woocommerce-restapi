@@ -18,8 +18,6 @@ import Pagination from '../../../src/components/pagination';
 const Page = ( { headerFooter, postsData } ) => {
 	const router = useRouter();
 	
-	console.log( 'postsData', postsData );
-	
 	// Redirecting to /blog if we are on page 1
 	const pageNo = router?.query?.pageNo ?? 1;
 	
