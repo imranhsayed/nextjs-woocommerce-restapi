@@ -12,6 +12,12 @@ import Pagination from '../../src/components/pagination';
 import { HEADER_FOOTER_ENDPOINT } from '../../src/utils/constants/endpoints';
 import { getPosts } from '../../src/utils/blog';
 
+/**
+ * Blog Component.
+ *
+ * @param {Object} headerFooter Header Footer Data.
+ * @param {Object} postsData Post Data.
+ */
 const Blog = ( { headerFooter, postsData } ) => {
 	console.log( 'postsData', postsData );
 	return (
