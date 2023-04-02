@@ -18,8 +18,6 @@ import PostMeta from '../../src/components/post-meta';
 
 const Post = ( { headerFooter, postData } ) => {
 	const router = useRouter();
-	
-	console.log( 'postData', postData );
 
 	/**
 	 * If the page is not yet generated, this will be displayed
@@ -54,7 +52,6 @@ export default Post;
 
 export async function getStaticProps( { params } ) {
 	const { data: headerFooterData } = await axios.get( HEADER_FOOTER_ENDPOINT );
-	// const { data: postData } = await getPost( params?.slug ?? '' );
 	const postData = await getPost( params?.slug ?? '' );
 
 	const defaultProps = {

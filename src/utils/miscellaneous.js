@@ -41,3 +41,18 @@ export const getFormattedDate = ( theDate = '', locales = 'en-us' ) => {
 	const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
 	return new Date( theDate ).toLocaleDateString( locales, options );
 };
+
+/**
+ * Get path name from url.
+ *
+ * @param {String} url URL.
+ *
+ * @return {String} URL pathname.
+ */
+export const getPathNameFromUrl = ( url = '' ) => {
+	if ( ! url ) {
+		return '';
+	}
+	const theURL = new URL( url );
+	return theURL.pathname;
+}

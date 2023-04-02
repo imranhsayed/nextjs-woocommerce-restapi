@@ -1,7 +1,7 @@
 /**
  * Internal Dependencies.
  */
-import {sanitize} from '../../../utils/miscellaneous';
+import { getPathNameFromUrl, sanitize } from '../../../utils/miscellaneous';
 import { getIconComponentByName } from '../../../utils/icons-map';
 
 /**
@@ -45,7 +45,7 @@ const Footer = ({footer}) => {
 							<ul>
 								{ footerMenuItems.map( menuItem => (
 									<li key={menuItem?.ID}>
-										<Link href={menuItem?.url ?? '/'}>
+										<Link href={ getPathNameFromUrl( menuItem?.url ?? '' ) || '/' }>
 											<a>{menuItem?.title}</a>
 										</Link>
 									</li>

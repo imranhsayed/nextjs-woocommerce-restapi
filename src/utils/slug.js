@@ -13,6 +13,9 @@ export const isCustomPageUri = ( uri ) => {
 	const pagesToExclude = [
 		'/',
 		'/blog/',
+		'/checkout/',
+		'/cart/',
+		'/thank-you/'
 	];
 	
 	return pagesToExclude.includes( uri );

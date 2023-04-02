@@ -4,6 +4,7 @@ import { isEmpty } from 'lodash';
 
 import { BurgerIcon, TailwindIcon, Bag, User, Wishlist } from '../../icons';
 import { AppContext } from '../../context';
+import { getPathNameFromUrl } from '../../../utils/miscellaneous';
 
 const Header = ( { header } ) => {
 	
@@ -47,7 +48,7 @@ const Header = ( { header } ) => {
 							className={ `${ isMenuVisible ? 'max-h-full' : 'h-0' } overflow-hidden w-full lg:h-full block flex-grow lg:flex lg:items-center lg:w-auto` }>
 							<div className="text-sm font-medium uppercase lg:flex-grow">
 								{ ! isEmpty( headerMenuItems ) && headerMenuItems.length ? headerMenuItems.map( menuItem => (
-									<Link key={ menuItem?.ID } href={ menuItem?.url ?? '/' }>
+									<Link key={ menuItem?.ID } href={ getPathNameFromUrl( menuItem?.url ?? '' ) || '/' }>
 										<a className="block mt-4 lg:inline-block lg:mt-0 hover:text-brand-royal-blue duration-500 mr-10"
 										   dangerouslySetInnerHTML={ { __html: menuItem.title } }/>
 									</Link>
