@@ -24,8 +24,19 @@ const Page = ( { headerFooter, postsData } ) => {
 		router.push( '/blog' );
 	}
 	
+	const seo = {
+		title: `Blog Page No ${pageNo}`,
+		description: 'Blog Page',
+		og_image: [],
+		og_site_name: 'React WooCommerce Theme',
+		robots: {
+			index: 'index',
+			follow: 'follow',
+		},
+	}
+	
 	return (
-		<Layout headerFooter={ headerFooter || {} } seo={ null }>
+		<Layout headerFooter={ headerFooter || {} } seo={ seo }>
 			<h1>Blog</h1>
 			<Posts posts={ postsData?.posts_data ?? [] }/>
 			<Pagination pagesCount={ postsData?.page_count ?? 0 } postName="blog"/>

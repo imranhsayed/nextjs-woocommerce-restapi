@@ -19,8 +19,19 @@ import { getPosts } from '../../src/utils/blog';
  * @param {Object} postsData Post Data.
  */
 const Blog = ( { headerFooter, postsData } ) => {
+	const seo = {
+		title: 'Blog Page',
+		description: 'Blog Page',
+		og_image: [],
+		og_site_name: 'React WooCommerce Theme',
+		robots: {
+			index: 'index',
+			follow: 'follow',
+		},
+	}
+	
 	return (
-		<Layout headerFooter={ headerFooter || {} } seo={ null }>
+		<Layout headerFooter={ headerFooter || {} } seo={ seo }>
 			<h1>Blog</h1>
 			<Posts posts={ postsData?.posts_data ?? [] }/>
 			<Pagination pagesCount={ postsData?.page_count ?? 0 } postName="blog"/>
