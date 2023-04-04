@@ -12,7 +12,7 @@ const Pagination = ( { pagesCount, postName } ) => {
 	}
 	
 	const router = useRouter();
-	const currentPageNo = parseInt( router?.query?.pageNo ) || 1;
+	const currentPageNo = parseInt( router?.query?.pageNo ?? 1 ) || 1;
 	
 	const paginationLinks = createPaginationLinks( currentPageNo, pagesCount );
 	

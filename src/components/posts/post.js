@@ -20,16 +20,16 @@ const Post = ( { post } ) => {
 		<div className="mb-8">
 			<Link href={ `/blog/${ post?.slug }/` }>
 				<a>
-				<figure className="overflow-hidden mb-4">
-					<Image
-						sourceUrl={ post?.attachment_image?.img_src?.[ 0 ] ?? '' }
-						title={ post?.title ?? '' }
-						width="400"
-						height="225"
-						layout="fill"
-						containerClassNames="w-96 sm:-w-600px md:w-400px h-56 sm:h-338px md:h-225px"
-					/>
-				</figure>
+					<figure className="overflow-hidden mb-4">
+						<Image
+							sourceUrl={ post?.attachment_image?.img_src?.[ 0 ] ?? '' }
+							title={ post?.title ?? '' }
+							width="400"
+							height="225"
+							layout="fill"
+							containerClassNames="w-96 sm:-w-600px md:w-400px h-56 sm:h-338px md:h-225px"
+						/>
+					</figure>
 				</a>
 			</Link>
 			<PostMeta date={ post?.date ?? '' } authorName={ post?.meta?.author_name ?? '' }/>

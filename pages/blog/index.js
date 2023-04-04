@@ -23,7 +23,7 @@ const Blog = ( { headerFooter, postsData } ) => {
 		<Layout headerFooter={ headerFooter || {} } seo={ null }>
 			<h1>Blog</h1>
 			<Posts posts={ postsData?.posts_data ?? [] }/>
-			<Pagination pagesCount={ postsData?.page_count } postName="blog"/>
+			<Pagination pagesCount={ postsData?.page_count ?? 0 } postName="blog"/>
 		</Layout>
 	);
 };

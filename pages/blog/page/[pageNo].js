@@ -28,7 +28,7 @@ const Page = ( { headerFooter, postsData } ) => {
 		<Layout headerFooter={ headerFooter || {} } seo={ null }>
 			<h1>Blog</h1>
 			<Posts posts={ postsData?.posts_data ?? [] }/>
-			<Pagination pagesCount={ postsData?.page_count } postName="blog"/>
+			<Pagination pagesCount={ postsData?.page_count ?? 0 } postName="blog"/>
 		</Layout>
 	);
 };
@@ -45,7 +45,7 @@ export async function getStaticProps( { params } ) {
 	const defaultProps = {
 		props: {
 			headerFooter: headerFooterData?.data ?? {},
-			postsData: postsData ?? {},
+			postsData: postsData || {},
 		},
 		/**
 		 * Revalidate means that if a new request comes to server, then every 1 sec it will check

@@ -48,7 +48,8 @@ const Header = ( { header } ) => {
 							className={ `${ isMenuVisible ? 'max-h-full' : 'h-0' } overflow-hidden w-full lg:h-full block flex-grow lg:flex lg:items-center lg:w-auto` }>
 							<div className="text-sm font-medium uppercase lg:flex-grow">
 								{ ! isEmpty( headerMenuItems ) && headerMenuItems.length ? headerMenuItems.map( menuItem => (
-									<Link key={ menuItem?.ID } href={ getPathNameFromUrl( menuItem?.url ?? '' ) || '/' }>
+									<Link key={ menuItem?.ID }
+									      href={ getPathNameFromUrl( menuItem?.url ?? '' ) || '/' }>
 										<a className="block mt-4 lg:inline-block lg:mt-0 hover:text-brand-royal-blue duration-500 mr-10"
 										   dangerouslySetInnerHTML={ { __html: menuItem.title } }/>
 									</Link>
@@ -76,7 +77,8 @@ const Header = ( { header } ) => {
 									<a className="flex mt-4 lg:inline-block lg:mt-0 text-black hover:text-black mr-10">
 									<span className="flex flex-row items-center lg:flex-col">
 									<Bag className="mr-1 lg:mr-0"/>
-										<span className="ml-1">Bag{ cart?.totalQty ? `(${cart?.totalQty})` : null }</span>
+										<span
+											className="ml-1">Bag{ cart?.totalQty ? `(${ cart?.totalQty })` : null }</span>
 									</span>
 									</a>
 								</Link>
