@@ -24,8 +24,10 @@
 - [x] Incremental Static (Re)generation and automatic creation of New Static product pages
 without having to re-build next.js the application.
 - [x] Gutenberg styles support
-- [ ] Blog Page
-- [ ] Post Page
+- [x] Blog Page with Pagination
+- [x] Single Post
+- [x] Pages
+- [x] 404 Page
 - [ ] Post Preview ( Coming Soon )
 - [ ] Product Pagination ( Coming Soon )
 - [ ] Load More Products ( Coming Soon )
