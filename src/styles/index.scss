@@ -1,7 +1,20 @@
+@use 'sass:math';
+// Gutenberg Styles.
+@import "~@wordpress/base-styles/colors";
+@import "~@wordpress/base-styles/variables";
+@import "~@wordpress/base-styles/mixins";
+@import "~@wordpress/base-styles/breakpoints";
+@import "~@wordpress/base-styles/animations";
+@import "~@wordpress/base-styles/z-index";
+@import '~@wordpress/block-library/src/style.scss';
+@import '~@wordpress/block-library/src/theme.scss';
+
+// Tailwind styles.
 @import "~tailwindcss/base";
 @import "~tailwindcss/components";
 @import "~tailwindcss/utilities";
 
+// Font Styles.
 @import "../fonts/fonts.scss";
 
 @import "01-settings/typography";
@@ -10,3 +23,6 @@
 
 // Image Gallery Styles.
 @import "~react-image-gallery/styles/scss/image-gallery.scss";
+
+// NProgress Styles.
+@import "04-libraries/nprogress";

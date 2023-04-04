@@ -1,0 +1,15 @@
+// NProgress style.
+@import 'nprogress/nprogress.css';
+
+#nprogress {
+
+	// Background bar
+	.bar {
+		height: 2px !important;
+		border-top: 4px solid #858Fbb !important;
+
+		.peg {
+			box-shadow: 0 0 2px #fff, 0 0 5px #fff !important;
+		}
+	}
+}
