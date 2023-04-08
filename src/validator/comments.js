@@ -66,7 +66,6 @@ const validateAndSanitizeCommentsForm = ( data ) => {
 	addErrorAndSanitizedData( 'author', 'Author Name', 0, 35, 'string', true );
 	addErrorAndSanitizedData( 'email', 'Email', 11, 254, 'email', true );
 	addErrorAndSanitizedData( 'url', 'Site URL', 2, 55, 'url', false );
-	addErrorAndSanitizedData( 'wp_comment_cookies_consent', '', 0, 3, 'string', false );
 	
 	return {
 		sanitizedData,
