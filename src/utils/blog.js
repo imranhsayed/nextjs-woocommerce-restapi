@@ -6,7 +6,12 @@ import axios from 'axios';
 /**
  * Internal Dependencies.
  */
-import { GET_PAGES_ENDPOINT, GET_POST_ENDPOINT, GET_POSTS_ENDPOINT } from './constants/endpoints';
+import {
+	GET_COMMENTS_ENDPOINT,
+	GET_PAGES_ENDPOINT,
+	GET_POST_ENDPOINT,
+	GET_POSTS_ENDPOINT,
+} from './constants/endpoints';
 
 /**
  * Get Posts.
@@ -81,6 +86,26 @@ export const getPages = async () => {
  */
 export const getPage = async ( pageSlug = '' ) => {
 	return await axios.get( `${ GET_PAGES_ENDPOINT }?slug=${ pageSlug }&_embed` )
+		.then( res => {
+			if ( 200 === res.status ) {
+				return res.data;
+			} else {
+				return [];
+			}
+		} )
+		.catch( err => {
+			console.log( err.response.data.message )
+			return [];
+		} );
+};
+
+/**
+ * Get Post By Slug.
+ *
+ * @return {Promise<void>}
+ */
+export const getComments = async ( postID = '' ) => {
+	return await axios.get( `${ GET_COMMENTS_ENDPOINT }?slug=${ postID }&_embed` )
 		.then( res => {
 			if ( 200 === res.status ) {
 				return res.data;
