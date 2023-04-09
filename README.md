@@ -28,6 +28,8 @@ without having to re-build next.js the application.
 - [x] Single Post
 - [x] Pages
 - [x] 404 Page
+- [x] Display Comments
+- [x] Post a Comment ( using a Comment Form )
 - [ ] Post Preview ( Coming Soon )
 - [ ] Product Pagination ( Coming Soon )
 - [ ] Load More Products ( Coming Soon )
