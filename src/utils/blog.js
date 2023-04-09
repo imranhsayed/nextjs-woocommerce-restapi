@@ -120,7 +120,9 @@ export const getComments = async ( postID = '' ) => {
 };
 
 /**
- * Get Post By Slug.
+ * Post a Comment
+ *
+ * POST Request.
  *
  * @return {Promise<void>}
  */
@@ -142,7 +144,6 @@ export const postComment = async ( postID = '', data = {} ) => {
 					error: '',
 				};
 			} else {
-				console.log( 'res', res );
 				return {
 					success: false,
 					error: 'Failed. Please try again.',
