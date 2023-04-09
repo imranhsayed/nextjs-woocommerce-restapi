@@ -2,7 +2,7 @@ import { isEmpty } from 'lodash';
 import { getFormattedDate, sanitize } from '../../utils/miscellaneous';
 import Image from '../image';
 
-const Comment = ( { comment } ) => {
+const Comment = ( { comment, handleReplyButtonClick } ) => {
 	
 	if ( isEmpty( comment ) ) {
 		return null;
@@ -34,8 +34,11 @@ const Comment = ( { comment } ) => {
 				dangerouslySetInnerHTML={ { __html: sanitize( comment?.content?.rendered ?? '' ) } }
 			/>
 			<div className="flex items-center mt-4 space-x-4">
-				<button type="button"
-				        className="flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400">
+				<button
+					type="button"
+				    className="flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400"
+					onClick={ ( event ) => handleReplyButtonClick( event, comment.id ) }
+				>
 					<svg aria-hidden="true" className="mr-1 w-4 h-4" fill="none" stroke="currentColor"
 					     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"

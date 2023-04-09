@@ -7,7 +7,7 @@ import axios from 'axios';
  * Internal Dependencies.
  */
 import {
-	GET_COMMENTS_ENDPOINT,
+	COMMENTS_ENDPOINT,
 	GET_PAGES_ENDPOINT,
 	GET_POST_ENDPOINT,
 	GET_POSTS_ENDPOINT,
@@ -105,7 +105,7 @@ export const getPage = async ( pageSlug = '' ) => {
  * @return {Promise<void>}
  */
 export const getComments = async ( postID = '' ) => {
-	return await axios.get( `${ GET_COMMENTS_ENDPOINT }?slug=${ postID }&_embed` )
+	return await axios.get( `${ COMMENTS_ENDPOINT }?post=${ postID }` )
 		.then( res => {
 			if ( 200 === res.status ) {
 				return res.data;
@@ -118,3 +118,42 @@ export const getComments = async ( postID = '' ) => {
 			return [];
 		} );
 };
+
+/**
+ * Get Post By Slug.
+ *
+ * @return {Promise<void>}
+ */
+export const postComment = async ( postID = '', data = {} ) => {
+	return await axios.post( `${ COMMENTS_ENDPOINT }`, {
+		post: data?.postId ?? 0,
+		parent: data?.parent ?? 0,
+		content: data?.comment ?? '',
+		author_email: data?.email ?? '',
+		date: data?.date ?? '',
+		author_url: data?.url ?? '',
+		author_name: data?.author ?? '',
+	}, )
+		.then( res => {
+			if ( 200 === res.status || 201 === res.status ) {
+				return {
+					success: true,
+					data: res.data,
+					error: '',
+				};
+			} else {
+				console.log( 'res', res );
+				return {
+					success: false,
+					error: 'Failed. Please try again.',
+				};
+			}
+		} )
+		.catch( err => {
+			return {
+				success: false,
+				error: err.response.data.message,
+			};
+		} );
+};
+

@@ -19,8 +19,6 @@ import Comments from '../../src/components/comments';
 
 const Post = ( { headerFooter, postData, commentsData } ) => {
 	const router = useRouter();
-	
-	console.log( 'commentsData', commentsData );
 
 	/**
 	 * If the page is not yet generated, this will be displayed
@@ -46,7 +44,7 @@ const Post = ( { headerFooter, postData, commentsData } ) => {
 				<PostMeta date={ getFormattedDate( postData?.date ?? '' ) } authorName={ postData?._embedded?.author?.[0]?.name ?? '' }/>
 				<h1 dangerouslySetInnerHTML={ { __html: sanitize( postData?.title?.rendered ?? '' ) } }/>
 				<div dangerouslySetInnerHTML={ { __html: sanitize( postData?.content?.rendered ?? '' ) } }/>
-				<Comments comments={ commentsData }/>
+				<Comments comments={ commentsData } postId={ postData?.id ?? '' }/>
 			</div>
 		</Layout>
 	);

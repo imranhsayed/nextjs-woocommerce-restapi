@@ -56,3 +56,60 @@ export const getPathNameFromUrl = ( url = '' ) => {
 	const theURL = new URL( url );
 	return theURL.pathname;
 }
+
+/**
+ * Smooth Scroll.
+ *
+ * Scrolls the given element to the top of the screen
+ * minus the topOffset( when provided ), smoothly(with animation).
+ *
+ * @param {Object} targetEl  element to be scrolled.
+ * @param {number} topOffset When target is clicked it will move up until this offset
+ *                           from the top of the screen.
+ * @param {number} duration  Duration of scroll in milliseconds.
+ *
+ * @return {null|void} Null.
+ */
+export const smoothScroll = ( targetEl, topOffset = 0, duration = 500 ) => {
+	if ( ! targetEl ) {
+		return null;
+	}
+	
+	const targetPosition = targetEl.getBoundingClientRect().top - topOffset;
+	const startPosition = window.scrollY; // Current height of the window.
+	let startTime = null;
+	
+	const animationCallBack = ( currentTime ) => {
+		if ( null === startTime ) {
+			startTime = currentTime;
+		}
+		const timeElapsed = currentTime - startTime;
+		const runPosition = getAnimateWithEasePosition( timeElapsed, startPosition, targetPosition, duration );
+		
+		window.scrollTo( 0, runPosition );
+		if ( timeElapsed < duration ) {
+			window.requestAnimationFrame( animationCallBack );
+		}
+	};
+	
+	window.requestAnimationFrame( animationCallBack );
+};
+
+/**
+ * Animation With Ease Position.
+ *
+ * @param {number} timeElapsed    Time elapsed.
+ * @param {number} startPosition  Start position.
+ * @param {number} targetPosition Target position.
+ * @param {number} duration       Duration in milliseconds.
+ *
+ * @return {number} Position.
+ */
+const getAnimateWithEasePosition = ( timeElapsed, startPosition, targetPosition, duration ) => {
+	timeElapsed /= duration / 2;
+	if ( 1 > timeElapsed ) {
+		return ( ( targetPosition / 2 ) * timeElapsed * timeElapsed ) + startPosition;
+	}
+	timeElapsed--;
+	return -( ( targetPosition / 2 ) * ( ( timeElapsed * ( timeElapsed - 2 ) ) - 1 ) ) + startPosition;
+};

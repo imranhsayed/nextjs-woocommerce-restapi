@@ -17,7 +17,6 @@ const validateAndSanitizeCommentsForm = ( data ) => {
 	data.author = ( ! isEmpty( data.author ) ) ? data.author : '';
 	data.email = ( ! isEmpty( data.email ) ) ? data.email : '';
 	data.url = ( ! isEmpty( data.url ) ) ? data.url : '';
-	data.wp_comment_cookies_consent = ( ! isEmpty( data.wp_comment_cookies_consent ) ) ? data.wp_comment_cookies_consent : '';
 	
 	/**
 	 * Checks for error if required is true
@@ -37,7 +36,7 @@ const validateAndSanitizeCommentsForm = ( data ) => {
 		 *
 		 * Check for error and if there is no error then sanitize data.
 		 */
-		if ( ! validator.isLength( data[ fieldName ], { min, max } ) ){
+		if ( ! validator.isLength( data[ fieldName ], { min, max } ) && required ){
 			errors[ fieldName ] = `${errorContent} must be ${min} to ${max} characters`;
 		}
 		
@@ -45,7 +44,7 @@ const validateAndSanitizeCommentsForm = ( data ) => {
 			errors[ fieldName ] = `${errorContent} is not valid`;
 		}
 		
-		if ( 'url' === type && ! validator.isURL( data[ fieldName ] ) ){
+		if ( 'url' === type && ! validator.isURL( data[ fieldName ] ) && required ){
 			errors[ fieldName ] = `${errorContent} is not valid`;
 		}
 		
