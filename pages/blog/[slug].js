@@ -12,11 +12,12 @@ import Layout from '../../src/components/layout';
 import { FALLBACK, handleRedirectsAndReturnData } from '../../src/utils/slug';
 import { getFormattedDate, sanitize } from '../../src/utils/miscellaneous';
 import { HEADER_FOOTER_ENDPOINT } from '../../src/utils/constants/endpoints';
-import { getPost, getPosts } from '../../src/utils/blog';
+import { getComments, getPost, getPosts } from '../../src/utils/blog';
 import Image from '../../src/components/image';
 import PostMeta from '../../src/components/post-meta';
+import Comments from '../../src/components/comments';
 
-const Post = ( { headerFooter, postData } ) => {
+const Post = ( { headerFooter, postData, commentsData } ) => {
 	const router = useRouter();
 
 	/**
@@ -43,6 +44,7 @@ const Post = ( { headerFooter, postData } ) => {
 				<PostMeta date={ getFormattedDate( postData?.date ?? '' ) } authorName={ postData?._embedded?.author?.[0]?.name ?? '' }/>
 				<h1 dangerouslySetInnerHTML={ { __html: sanitize( postData?.title?.rendered ?? '' ) } }/>
 				<div dangerouslySetInnerHTML={ { __html: sanitize( postData?.content?.rendered ?? '' ) } }/>
+				<Comments comments={ commentsData } postId={ postData?.id ?? '' }/>
 			</div>
 		</Layout>
 	);
@@ -53,11 +55,13 @@ export default Post;
 export async function getStaticProps( { params } ) {
 	const { data: headerFooterData } = await axios.get( HEADER_FOOTER_ENDPOINT );
 	const postData = await getPost( params?.slug ?? '' );
+	const commentsData = await getComments( postData?.[0]?.id ?? 0 );
 
 	const defaultProps = {
 		props: {
 			headerFooter: headerFooterData?.data ?? {},
-			postData: postData?.[0] ?? {}
+			postData: postData?.[0] ?? {},
+			commentsData: commentsData || []
 		},
 		/**
 		 * Revalidate means that if a new request comes to server, then every 1 sec it will check
