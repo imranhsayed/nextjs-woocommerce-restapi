@@ -3,7 +3,7 @@ const allowedImageWordPressDomain = new URL( process.env.NEXT_PUBLIC_WORDPRESS_S
 
 module.exports = {
 	trailingSlash: false,
-	webpackDevMiddleware: config => {
+	webpack: config => {
 		config.watchOptions = {
 			poll: 1000,
 			aggregateTimeout: 300
