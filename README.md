@@ -11,25 +11,34 @@
 - Data is Fetched through REST API.
 
 ## Features
-1. Home Page, Blog Page, Post Page
-2. Post Preview ( Coming Soon )
-3. Product Pagination ( Coming Soon )
-4. Load More Products ( Coming Soon )
-8. REST API endpoints.
-9. Header and Footer in Next.js fetching from WordPress Menu items.
-10. WordPress Widgets displayed on Next.js frontend.
-11. Site title, tagline, copyright text, social links sourced from WordPress.
-12. Next.js Image component, that has image optimization at request time ( Coming Soon )
-13. Authentication with JWT and Http Only Cookie implementation. ( Coming Soon )
-14. Login feature for WP Post Preview in Next.js ( Coming Soon )
-15. Incremental Static (Re)generation and automatic creation of New Static post pages
-    without having to re-build next.js the application. ( Coming Soon )
-14. Gutenberg styles support ( Coming Soon )
+- [x] Home Page
+- [x] Single Product Page With Gallery Carousel.
+- [x] Cart Page
+- [x] Checkout Page with Stripe Payment Gateway Integration.
+- [x] REST API endpoints.
+- [x] Header and Footer in Next.js fetching from WordPress Menu items.
+- [x] WordPress Widgets displayed on Next.js frontend.
+- [x] Site title, tagline, copyright text, social links sourced from WordPress.
+- [x] Yoast SEO support
+- [x] Next.js Image component, that has image optimization at request time
+- [x] Incremental Static (Re)generation and automatic creation of New Static product pages
+without having to re-build next.js the application.
+- [x] Gutenberg styles support
+- [x] Blog Page with Pagination
+- [x] Single Post
+- [x] Pages
+- [x] 404 Page
+- [x] Display Comments
+- [x] Post a Comment ( using a Comment Form )
+- [ ] Post Preview ( Coming Soon )
+- [ ] Product Pagination ( Coming Soon )
+- [ ] Load More Products ( Coming Soon )
+- [ ] Authentication with JWT and Http Only Cookie implementation. ( Coming Soon )
+- [ ] Login feature for WP Post Preview in Next.js ( Coming Soon )
 
 ## [Tutorial Course](https://www.youtube.com/playlist?list=PLD8nQCAhR3tSRwsvzRtogv9MFkEWo5d9c)
 
-## [Live Demo Link](#)
-Coming Soon.
+## [Live Demo Link](https://nextjs-woocommerce-restapi-virid.vercel.app/)
 
 ## Setup
 
@@ -38,7 +47,7 @@ First clone/fork the repo and cd into it.
 ```bash
 git clone https://github.com/imranhsayed/nextjs-woocommerce-restapi.git
 cd nextjs-woocommerce-restapi
-npm install
+npm ci
 npm run dev
 ```
 
@@ -59,6 +68,10 @@ npm run dev
 
 2. In your WordPress Dashboard, Go to Settings > General > Site Address (URL) ( Set this to Frontend URL e.g. http://localhost:3000 during development )
 3. Create the Header and Footer Menus In WordPress Dashboard and set them to HCMS Header menu and HCMS Footer Menu respectively.
+
+## Useful Links
+- [Stripe](https://dashboard.stripe.com/)
+- [Getting Stripe API Keys](https://codeytek.com/create-stripe-checkout-in-next-js-stripe-session-stripe-webhook/)
 
 ## Versioning :bookmark_tabs:
 

@@ -11,14 +11,14 @@ const CartItemsContainer = () => {
 	const [ isClearCartProcessing, setClearCartProcessing ] = useState( false );
 	
 	// Clear the entire cart.
-	const handleClearCart = ( event ) => {
+	const handleClearCart = async ( event ) => {
 		event.stopPropagation();
 		
 		if (isClearCartProcessing) {
 			return;
 		}
 		
-		clearCart( setCart, setClearCartProcessing );
+		await clearCart( setCart, setClearCartProcessing );
 
 	};
 	
@@ -60,7 +60,7 @@ const CartItemsContainer = () => {
 							</div>
 							{/*Checkout*/}
 							<Link href="/checkout">
-								<button className="text-white duration-500 bg-brand-orange hover:bg-brand-royal-blue focus:ring-4 focus:text-brand-gunsmoke-grey font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-yellow-900">
+								<button className="text-white duration-500 bg-brand-orange hover:bg-brand-royal-blue focus:ring-4 focus:text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-yellow-900">
 			                  <span className="woo-next-cart-checkout-txt">
 			                    Proceed to Checkout
 			                  </span>

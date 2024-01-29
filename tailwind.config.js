@@ -11,6 +11,8 @@ module.exports = {
 					'bright-grey': '#b1b1b1',
 					'gunsmoke-grey': '#8d8d8d',
 					'royal-blue': '#3b82f6',
+					'wild-blue': '#858Fbb',
+					'gun-powder': '#434656',
 				}
 			},
 			fontFamily: {
@@ -51,6 +53,9 @@ module.exports = {
 			},
 			minHeight: {
 				'50vh': '50vh'
+			},
+			height: {
+				'600px': '600px',
 			},
 			lineHeight: {
 				'0': '0',

@@ -1,24 +1,20 @@
-import Head from 'next/head';
 import Link from 'next/link';
 import { useContext, useState } from 'react';
 import { isEmpty } from 'lodash';
 
 import { BurgerIcon, TailwindIcon, Bag, User, Wishlist } from '../../icons';
 import { AppContext } from '../../context';
+import { getPathNameFromUrl } from '../../../utils/miscellaneous';
 
 const Header = ( { header } ) => {
 	
 	const [ cart, setCart ] = useContext( AppContext );
-	const { headerMenuItems, siteDescription, siteLogoUrl, siteTitle, favicon } = header || {};
+	const { headerMenuItems, siteDescription, siteLogoUrl, siteTitle } = header || {};
 	
 	const [ isMenuVisible, setMenuVisibility ] = useState( false );
 	
 	return (
 		<>
-			<Head>
-				<title>{ siteTitle || 'Nexts WooCommerce' }</title>
-				<link rel="icon" href={ favicon || '/favicon.ico' }/>
-			</Head>
 			<div className="header">
 				<nav className="bg-white py-5">
 					<div className="flex items-center justify-between flex-wrap container mx-auto">
@@ -52,11 +48,15 @@ const Header = ( { header } ) => {
 							className={ `${ isMenuVisible ? 'max-h-full' : 'h-0' } overflow-hidden w-full lg:h-full block flex-grow lg:flex lg:items-center lg:w-auto` }>
 							<div className="text-sm font-medium uppercase lg:flex-grow">
 								{ ! isEmpty( headerMenuItems ) && headerMenuItems.length ? headerMenuItems.map( menuItem => (
-									<Link key={ menuItem?.ID } href={ menuItem?.url ?? '/' }>
+									<Link key={ menuItem?.ID }
+									      href={ getPathNameFromUrl( menuItem?.url ?? '' ) || '/' }>
 										<a className="block mt-4 lg:inline-block lg:mt-0 hover:text-brand-royal-blue duration-500 mr-10"
 										   dangerouslySetInnerHTML={ { __html: menuItem.title } }/>
 									</Link>
 								) ) : null }
+								<Link href="/blog">
+									<a className="block mt-4 lg:inline-block lg:mt-0 hover:text-brand-royal-blue duration-500 mr-10">Blog</a>
+								</Link>
 							</div>
 							<div className="text-sm font-medium">
 								<a href="#responsive-header"
@@ -77,7 +77,8 @@ const Header = ( { header } ) => {
 									<a className="flex mt-4 lg:inline-block lg:mt-0 text-black hover:text-black mr-10">
 									<span className="flex flex-row items-center lg:flex-col">
 									<Bag className="mr-1 lg:mr-0"/>
-										<span className="ml-1">Bag{ cart?.totalQty ? `(${cart?.totalQty})` : null }</span>
+										<span
+											className="ml-1">Bag{ cart?.totalQty ? `(${ cart?.totalQty })` : null }</span>
 									</span>
 									</a>
 								</Link>
